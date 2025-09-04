@@ -78,7 +78,7 @@ const CartIcon = () => {
 };
 
 // --- CORE COMPONENTS ---
-const Header = ({ activeRoute }) => (
+const Header = ({ activeRoute, onCartClick }) => (
   <header className="header">
     <div className="container">
       <a href="#" className="logo">
@@ -93,9 +93,9 @@ const Header = ({ activeRoute }) => (
       </nav>
       <div className="header-icons">
         <UserIcon />
-        <a href="#cart" aria-label="View shopping cart">
+        <button onClick={onCartClick} className="cart-icon-button" aria-label="View shopping cart">
             <CartIcon />
-        </a>
+        </button>
       </div>
     </div>
   </header>
@@ -163,6 +163,56 @@ const ProductGrid = ({ items, title }) => (
     </div>
   </section>
 );
+
+// --- NEW CART DROPDOWN COMPONENT ---
+const CartDropdown = ({ isOpen, onClose }) => {
+    const { items, removeFromCart, totalPrice, itemCount } = useContext(CartContext);
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="cart-dropdown-overlay" onClick={onClose}>
+            <div className="cart-dropdown" onClick={(e) => e.stopPropagation()}>
+                <div className="cart-dropdown-header">
+                    <h3>Your Cart ({itemCount})</h3>
+                    <button onClick={onClose} className="close-btn">&times;</button>
+                </div>
+                {items.length === 0 ? (
+                    <div className="cart-dropdown-empty">
+                        <p>Your cart is empty.</p>
+                        <a href="#shop" className="btn" onClick={onClose}>Start Shopping</a>
+                    </div>
+                ) : (
+                    <>
+                        <div className="cart-dropdown-items">
+                            {items.map(item => (
+                                <div key={item.id} className="cart-dropdown-item">
+                                    <img src={item.image} alt={item.name} />
+                                    <div className="item-details">
+                                        <span>{item.name}</span>
+                                        <span>{item.quantity} x ${item.price.toFixed(2)}</span>
+                                    </div>
+                                    <button onClick={() => removeFromCart(item.id)} className="remove-item-btn">&times;</button>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="cart-dropdown-footer">
+                            <div className="cart-dropdown-total">
+                                <span>Subtotal:</span>
+                                <span>${totalPrice.toFixed(2)}</span>
+                            </div>
+                            <div className="cart-dropdown-actions">
+                                <a href="#cart" className="btn btn-secondary" onClick={onClose}>View Cart</a>
+                                <a href="#cart" className="btn" onClick={onClose}>Checkout</a>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        </div>
+    );
+};
+
 
 // --- PAGE COMPONENTS ---
 const HomePage = () => (
@@ -282,6 +332,7 @@ const CartPage = () => {
 
 const App = () => {
   const [route, setRoute] = useState(window.location.hash.substring(1) || 'home');
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -307,7 +358,8 @@ const App = () => {
 
   return (
     <CartProvider>
-      <Header activeRoute={route} />
+      <Header activeRoute={route} onCartClick={() => setIsCartOpen(true)} />
+      <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <main>
         {renderPage()}
       </main>
