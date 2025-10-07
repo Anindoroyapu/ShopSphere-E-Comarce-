@@ -1,7 +1,7 @@
 "use client";
+import { products } from "@/component/data/products";
+import ProductGrid from "@/component/ProductGrid";
 import { useState } from "react";
-import ProductGrid from "@/components/ProductGrid";
-import { products } from "@/data/products";
 
 export default function CategoriesPage() {
   const categories = ["All", ...new Set(products.map((p) => p.category))];
