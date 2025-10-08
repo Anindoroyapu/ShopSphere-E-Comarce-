@@ -307,7 +307,7 @@ const CategoriesPage = ({
               className="group relative h-64 rounded-lg overflow-hidden flex justify-center items-center cursor-pointer transition-transform duration-300 hover:scale-105"
               onClick={() => handleCategoryClick(category)}
             >
-              <img
+              <Image
                 src={categoryData[category]}
                 alt={category}
                 className="absolute inset-0 w-full h-full object-cover z-0"
