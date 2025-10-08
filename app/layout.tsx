@@ -1,21 +1,21 @@
 import { CartProvider } from "@/component/context/CartContext";
 import "./globals.css";
-import Header from "@/component/header/Header";
-
 
 export const metadata = {
   title: "ShopSphere",
   description: "Fashion e-commerce built with Next.js",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
         <CartProvider>
-          <Header />
           <main>{children}</main>
-          <Footer />
         </CartProvider>
       </body>
     </html>
