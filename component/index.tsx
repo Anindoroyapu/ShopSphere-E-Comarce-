@@ -1,5 +1,4 @@
 import React, { useState, useContext, createContext, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
 
 // --- DUMMY DATA ---
 const products = [
