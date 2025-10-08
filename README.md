@@ -18,8 +18,3 @@ This contains everything you need to run your app locally.
 2
 3. Run the app:
    `npm run dev`
-   
-4. or `yarn`
-5. `yarn dev`
-
-6. anindoroyapu
