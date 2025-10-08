@@ -649,7 +649,7 @@ const CartPage = ({
                 className="flex items-center gap-4 bg-white p-4 rounded-lg border border-gray-200"
                 key={item.product.id}
               >
-                <img
+                <Image
                   src={item.product.imageUrl}
                   alt={item.product.name}
                   className="w-24 h-24 object-cover rounded-md"
