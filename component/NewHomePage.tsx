@@ -302,21 +302,26 @@ const CategoriesPage = ({
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
-            <div
+            <button
               key={category}
-              className="group relative h-64 rounded-lg overflow-hidden flex justify-center items-center cursor-pointer transition-transform duration-300 hover:scale-105"
+              type="button"
               onClick={() => handleCategoryClick(category)}
+              aria-label={`View ${category} category`}
+              className="group relative h-64 rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
             >
               <Image
                 src={categoryData[category]}
                 alt={category}
-                className="absolute inset-0 w-full h-full object-cover z-0"
+                width={2670}
+                height={1780}
+                sizes="100vw"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/40 z-10 transition-colors group-hover:bg-black/60"></div>
-              <h3 className="relative z-20 text-3xl font-semibold text-white">
+              <div className="absolute inset-0 bg-black/40 z-0 transition-colors group-hover:bg-black/60"></div>
+              <span className="relative z-10 text-2xl md:text-3xl font-semibold text-white">
                 {category}
-              </h3>
-            </div>
+              </span>
+            </button>
           ))}
         </div>
       </div>
@@ -953,9 +958,11 @@ const AboutUsPage = () => (
         About liveflashback
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?q=80&w=2670&auto=format&fit=crop"
           alt="About liveflashback"
+          width={2670}
+          height={1780}
           className="w-full h-[450px] object-cover rounded-lg"
         />
         <div className="text-gray-600 leading-relaxed">
