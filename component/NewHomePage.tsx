@@ -1,35 +1,15 @@
 "use client";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import React, { useState } from "react";
 import logo from "@/public/logo.png";
+import { allProducts } from "./Product";
 type Category = "Apparel" | "Footwear" | "Accessories";
-
-import lm101 from "@/public/lm101.png";
-import lm102 from "@/public/lm102.png";
-import lm103 from "@/public/lm103.png";
-import lm104 from "@/public/lm104.png";
-import lm105 from "@/public/lm105.png";
-import lm106 from "@/public/lm106.png";
-import lm107 from "@/public/lm107.png";
-import lm108 from "@/public/lm108.png";
-import lm109 from "@/public/lm109.png";
-import lm110 from "@/public/lm110.png";
-import lm111 from "@/public/lm111.png";
-import lm112 from "@/public/lm112.png";
-import lm113 from "@/public/lm113.png";
-import lm114 from "@/public/lm114.png";
-import lm115 from "@/public/lm115.png";
-import lm116 from "@/public/lm116.png";
-import lm117 from "@/public/lm117.png";
-import lm118 from "@/public/lm118.png";
-import lm119 from "@/public/lm119.png";
-import lm120 from "@/public/lm120.png";
 
 interface Product {
   id: number;
   name: string;
   price: number;
-  imageUrl: string;
+  imageUrl: string | StaticImageData;
   category: Category;
 }
 
@@ -37,73 +17,6 @@ interface CartItem {
   product: Product;
   quantity: number;
 }
-
-const allProducts: Product[] = [
-  {
-    id: 1,
-    name: "Classic White Tee",
-    price: 690.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=2592&auto=format&fit=crop",
-    category: "Apparel",
-  },
-  {
-    id: 2,
-    name: "Denim Jacket",
-    price: 89.99,
-    imageUrl:
-      "https://images.unsplash.com/photo-1543072553-73c42f843501?q=80&w=2592&auto=format&fit=crop",
-    category: "Apparel",
-  },
-  {
-    id: 3,
-    name: "Leather Boots",
-    price: 120.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1603569429699-9a8b11b51e9e?q=80&w=2592&auto=format&fit=crop",
-    category: "Footwear",
-  },
-  {
-    id: 4,
-    name: "Stylish Sunglasses",
-    price: 45.5,
-    imageUrl:
-      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=2680&auto=format&fit=crop",
-    category: "Accessories",
-  },
-  {
-    id: 5,
-    name: "Cozy Knit Sweater",
-    price: 65.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1619625342323-a559853a47a1?q=80&w=2592&auto=format&fit=crop",
-    category: "Apparel",
-  },
-  {
-    id: 6,
-    name: "Black Leather Bag",
-    price: 150.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1594223274502-9421bcc34525?q=80&w=2592&auto=format&fit=crop",
-    category: "Accessories",
-  },
-  {
-    id: 7,
-    name: "Modern Wristwatch",
-    price: 250.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?q=80&w=2592&auto=format&fit=crop",
-    category: "Accessories",
-  },
-  {
-    id: 8,
-    name: "Casual Sneakers",
-    price: 75.0,
-    imageUrl:
-      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=2592&auto=format&fit=crop",
-    category: "Footwear",
-  },
-];
 
 const featuredProducts = allProducts.slice(0, 4);
 
@@ -306,20 +219,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => (
   <div className="group border border-gray-200 rounded-lg overflow-hidden bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col">
     <div className="relative overflow-hidden">
-      <img
+      <Image
         src={product.imageUrl}
         alt={product.name}
+        width={400}
+        height={300}
         className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-105"
       />
       <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 flex gap-2 transition-all duration-300 opacity-0 group-hover:bottom-5 group-hover:opacity-100">
         <button
-          className="bg-blue-600 text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-blue-700"
+          className="bg-blue-600 text-nowrap text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-blue-700"
           onClick={() => addToCart(product)}
         >
           Add to Cart
         </button>
         <button
-          className="bg-green-600 text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-green-700"
+          className="bg-green-600 text-nowrap text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-green-700"
           onClick={() => handleBuyNow(product)}
         >
           Buy Now
@@ -703,7 +618,7 @@ const CartPage = ({
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
-  const shipping = 5.0;
+  const shipping = 120.0;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {
@@ -714,7 +629,7 @@ const CartPage = ({
             Your Cart is Empty
           </h2>
           <p className="text-lg">
-            Looks like you haven't added anything to your cart yet.
+            Looks like you haven&apos;t added anything to your cart yet.
           </p>
         </div>
       </section>
@@ -744,7 +659,7 @@ const CartPage = ({
                     {item.product.name}
                   </span>
                   <span className="text-gray-600">
-                    ${item.product.price.toFixed(2)}
+                    ৳{item.product.price.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -770,7 +685,7 @@ const CartPage = ({
                   </button>
                 </div>
                 <div className="font-semibold text-lg text-gray-800 w-24 text-right">
-                  ${(item.product.price * item.quantity).toFixed(2)}
+                  ৳{(item.product.price * item.quantity).toFixed(2)}
                 </div>
                 <button
                   className="text-gray-500 hover:text-red-500 text-2xl"
@@ -788,15 +703,15 @@ const CartPage = ({
             <div className="space-y-4">
               <div className="flex justify-between text-lg">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>৳{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg">
                 <span>Shipping</span>
-                <span>${shipping.toFixed(2)}</span>
+                <span>৳{shipping.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>৳{total.toFixed(2)}</span>
               </div>
             </div>
             <button
@@ -835,7 +750,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
-  const shipping = 5.0;
+  const shipping = 120.0;
   const total = subtotal + shipping;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -862,9 +777,9 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
 
     body += `
             -------------------
-            Subtotal: $${subtotal.toFixed(2)}
-            Shipping: $${shipping.toFixed(2)}
-            Total: $${total.toFixed(2)}
+            Subtotal: ৳${subtotal.toFixed(2)}
+            Shipping: ৳${shipping.toFixed(2)}
+            Total: ৳${total.toFixed(2)}
         `;
 
     const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(
@@ -962,7 +877,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
                     {item.product.name} x {item.quantity}
                   </span>
                   <span className="font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    ৳{(item.product.price * item.quantity).toFixed(2)}
                   </span>
                 </div>
               ))}
@@ -970,15 +885,15 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
             <div className="space-y-4 border-t pt-4">
               <div className="flex justify-between text-lg">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>৳{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg">
                 <span>Shipping</span>
-                <span>${shipping.toFixed(2)}</span>
+                <span>৳{shipping.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>৳{total.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -1017,8 +932,8 @@ const OrderConfirmationPage = ({
           Thank You For Your Order!
         </h2>
         <p className="text-lg text-gray-600 mb-8">
-          Your order has been placed successfully. We've sent a confirmation to
-          your email address.
+          Your order has been placed successfully. We&apos;ve sent a
+          confirmation to your email address.
         </p>
         <button
           className="bg-blue-600 text-white py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:bg-blue-700"
@@ -1064,8 +979,8 @@ const AboutUsPage = () => (
           </p>
           <p>
             We hope you enjoy our products as much as we enjoy offering them to
-            you. If you have any questions or comments, please don't hesitate to
-            contact us.
+            you. If you have any questions or comments, please don&apos;t
+            hesitate to contact us.
           </p>
         </div>
       </div>
