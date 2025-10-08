@@ -565,7 +565,7 @@ const ShippingPolicy = () => (
           </svg>
           ডেলিভারি চার্জ
         </h4>
-        <ul className="list-none space-y-1">
+        <ul className="list-none space-y-1 text-black">
           <li>
             ঢাকার মধ্যে: <strong>60 টাকা</strong>
           </li>
@@ -574,7 +574,7 @@ const ShippingPolicy = () => (
           </li>
         </ul>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 text-black">
         <h4 className="flex items-center gap-3 text-lg font-semibold text-gray-800 mb-3">
           <svg
             className="w-6 h-6 text-blue-600"
@@ -798,7 +798,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
         <h2 className="text-center text-4xl font-semibold mb-12 text-gray-800">
           Checkout
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr,1fr] gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div className="bg-white p-8 rounded-lg shadow-md border">
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
               Shipping Information
@@ -866,7 +866,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
               </button>
             </form>
           </div>
-          <div className="bg-white p-8 rounded-lg shadow-md border sticky top-32">
+          <div className="bg-white text-black p-8 rounded-lg shadow-md border sticky top-32">
             <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
               Your Order
             </h3>
