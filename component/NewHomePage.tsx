@@ -628,7 +628,7 @@ const CartPage = ({
 
   if (cart.length === 0) {
     return (
-      <section className="py-16 bg-white">
+      <section className="py-16 h-1/2 bg-white">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <h2 className="text-4xl font-semibold mb-4 text-gray-800">
             Your Cart is Empty
@@ -657,6 +657,9 @@ const CartPage = ({
                 <Image
                   src={item.product.imageUrl}
                   alt={item.product.name}
+                  width={100}
+                  height={100}
+                  sizes="100vw"
                   className="w-24 h-24 object-cover rounded-md"
                 />
                 <div className="flex-grow">
