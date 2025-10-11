@@ -19,6 +19,7 @@ import lm117 from "@/public/lm117.jpg";
 import lm118 from "@/public/lm118.jpg";
 import lm119 from "@/public/lm119.jpg";
 import lm120 from "@/public/lm120.jpg";
+
 import { StaticImageData } from "next/image";
 
 export const allProducts: Product[] = [

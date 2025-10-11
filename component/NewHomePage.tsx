@@ -782,7 +782,6 @@ interface CheckoutPageProps {
   setCart: (cart: CartItem[]) => void;
   setCurrentPage: (page: string) => void;
 }
-
 const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -802,7 +801,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
   const shipping = 120.0;
   const total = subtotal + shipping;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const emailTo = "liveflashback90@gmail.com";
@@ -819,7 +818,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
         `;
 
     cart.forEach((item) => {
-      body += `${item.product.name} (x${item.quantity}) - $${(
+      body += `${item.product.name} (x${item.quantity}) - ৳${(
         item.product.price * item.quantity
       ).toFixed(2)}\n`;
     });
@@ -835,7 +834,29 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
       subject
     )}&body=${encodeURIComponent(body)}`;
 
-    window.location.href = mailtoLink;
+    // Try to open mail client via a temporary anchor (more reliable in desktop browsers)
+    try {
+      const a = document.createElement("a");
+      a.href = mailtoLink;
+      a.target = "_blank";
+      a.rel = "noopener";
+      // Append to DOM and click to trigger mail client
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } catch (err) {
+      // Fallback: copy mailto link to clipboard and inform user
+      try {
+        await navigator.clipboard.writeText(mailtoLink);
+        alert(
+          "Could not open your mail client automatically. A mail link has been copied to your clipboard — paste it into your mail app to send the order."
+        );
+      } catch {
+        alert(
+          "Could not open mail client and could not copy link to clipboard. Please contact support or try from another device."
+        );
+      }
+    }
 
     setCart([]);
     setCurrentPage("orderConfirmation");
