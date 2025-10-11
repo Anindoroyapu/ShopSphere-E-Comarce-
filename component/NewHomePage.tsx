@@ -54,7 +54,7 @@ const Header = ({
   };
 
   return (
-   <header className="bg-[#0B1A3A] py-4 border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-[#0B1A3A] py-4 border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex justify-between items-center">
           <div
@@ -69,7 +69,6 @@ const Header = ({
                 height={50}
               />
             </div>
-           
           </div>
           <ul className="hidden lg:flex gap-8">
             {[
@@ -140,7 +139,6 @@ const Header = ({
               )}
             </div>
           </div>
-
         </nav>
       </div>
     </header>
@@ -152,41 +150,39 @@ interface HeroProps {
 }
 
 const Hero = ({ setCurrentPage }: HeroProps) => (
- <section
-  className="relative h-[60vh] bg-cover bg-center text-white flex flex-col justify-center items-center text-center md:text-left"
-  style={{
-    backgroundImage: `url('banner.png')`, // 👉 তোমার image path এখানে দাও
-  }}
->
-  {/* Overlay */}
-  {/* <div className="absolute inset-0 bg-black/50"></div> */}
+  <section
+    className="relative h-[60vh] bg-cover bg-center text-white flex flex-col justify-center items-center text-center md:text-left"
+    style={{
+      backgroundImage: `url('banner.png')`, // 👉 তোমার image path এখানে দাও
+    }}
+  >
+    {/* Overlay */}
+    {/* <div className="absolute inset-0 bg-black/50"></div> */}
 
-  {/* Content */}
-  <div className="relative z-10 w-full h-full flex flex-col justify-center md:justify-between p-6 md:p-12">
-    {/* Center Text */}
-    <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left flex-grow">
-      <h3 className="text-lg max-w-2xl mx-auto md:mx-0 mb-4"> NEW SEASON</h3>
-       <h1 className="text-4xl text-[#D4AF37] md:text-5xl font-bold mb-4">
-       FASHION SALE
-      </h1> 
-       <p className="text-lg max-w-2xl mx-auto md:mx-0 mb-8">
-        Browse our new collection and find your next favorite outfit.
-      </p> 
+    {/* Content */}
+    <div className="relative z-10 w-full h-full flex flex-col justify-center md:justify-between p-6 md:p-12">
+      {/* Center Text */}
+      <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left flex-grow">
+        <h3 className="text-lg max-w-2xl mx-auto md:mx-0 mb-4"> NEW SEASON</h3>
+        <h1 className="text-4xl text-[#D4AF37] md:text-5xl font-bold mb-4">
+          FASHION SALE
+        </h1>
+        <p className="text-lg max-w-2xl mx-auto md:mx-0 mb-8">
+          Browse our new collection and find your next favorite outfit.
+        </p>
+      </div>
+
+      {/* Bottom Left Button */}
+      <div className="flex justify-center md:justify-start">
+        <button
+          className="bg-[#0B1A3A] text-[#D4AF37] py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:text-white"
+          onClick={() => setCurrentPage("shop")}
+        >
+          Shop Now
+        </button>
+      </div>
     </div>
-
-    {/* Bottom Left Button */}
-    <div className="flex justify-center md:justify-start">
-      <button
-        className="bg-[#0B1A3A] text-[#D4AF37] py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:text-white"
-        onClick={() => setCurrentPage("shop")}
-      >
-        Shop Now
-      </button>
-    </div>
-  </div>
-</section>
-
-
+  </section>
 );
 
 interface ProductCardProps {
@@ -204,7 +200,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className="group border border-gray-200 rounded-lg overflow-hidden bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col">
-      
       {/* Image Container */}
       <div
         className="relative overflow-hidden cursor-pointer"
@@ -254,13 +249,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Product Info */}
       <div className="p-5 text-center mt-auto">
-        <h3 className="text-lg font-semibold text-gray-600 mb-2">{product.name}</h3>
-        <p className="text-xl font-bold text-[#D4AF37]">{product.price.toFixed(2)} ৳</p>
+        <h3 className="text-lg font-semibold text-gray-600 mb-2">
+          {product.name}
+        </h3>
+        <p className="text-xl font-bold text-[#D4AF37]">
+          {product.price.toFixed(2)} ৳
+        </p>
       </div>
     </div>
   );
 };
-
 
 interface FeaturedProductsProps {
   addToCart: (product: Product) => void;
@@ -277,14 +275,17 @@ const FeaturedProducts = ({
         Featured Products
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {featuredProducts.slice().reverse().map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            addToCart={addToCart}
-            handleBuyNow={handleBuyNow}
-          />
-        ))}
+        {featuredProducts
+          .slice()
+          .reverse()
+          .map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              addToCart={addToCart}
+              handleBuyNow={handleBuyNow}
+            />
+          ))}
       </div>
     </div>
   </section>
@@ -474,7 +475,6 @@ const ContactPage = () => {
                 Send Message
               </button>
             </form>
-
           </div>
           <div className="bg-white p-8 rounded-lg shadow-md">
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -567,7 +567,7 @@ const ShippingPolicy = () => (
     <h3 className="text-2xl font-semibold text-gray-800 mb-4 pb-3 border-b border-gray-300">
       ডেলিভারি ও শিপিং পলিসি
     </h3>
-    <p className="mb-6">
+    <p className="mb-6 text-black">
       আমরা আমাদের প্রোডাক্টগুলো <strong>Stedfast Courier Service</strong> এর
       মাধ্যমে ডেলিভারি করে থাকি, যাতে আপনি নিরাপদ ও দ্রুত সার্ভিস পান।
     </p>
@@ -662,118 +662,148 @@ const CartPage = ({
   }
 
   return (
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <h2 className="text-center text-4xl font-semibold mb-12 text-gray-800">
-            Your Shopping Cart
-          </h2>
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4 lg:px-8">
+        <h2 className="text-center text-4xl font-semibold mb-12 text-gray-800">
+          Your Shopping Cart
+        </h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 items-start">
-            {/* Cart Items */}
-            <div className="flex flex-col gap-6">
-              {cart.map((item) => (
-                <div
-                  className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white p-4 rounded-lg border border-gray-200"
-                  key={item.product.id}
-                >
-                  {/* Product Image */}
-                  <Image
-                    src={item.product.imageUrl}
-                    alt={item.product.name}
-                    className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-md flex-shrink-0"
-                  />
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 items-start">
+          {/* Cart Items */}
+          <div className="flex flex-col gap-6">
+            {cart.map((item) => (
+              <div
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white p-4 rounded-lg border border-gray-200"
+                key={item.product.id}
+              >
+                {/* Product Image */}
+                <Image
+                  src={item.product.imageUrl}
+                  alt={item.product.name}
+                  className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-md flex-shrink-0"
+                />
 
-                  {/* Name + Quantity + Remove */}
-                  <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                    {/* Product Name */}
-                    <div className="flex-1 min-w-0">
-                      <span className="font-semibold text-gray-800 block truncate">
-                        {item.product.name}
-                      </span>
-                    </div>
+                {/* Name + Quantity + Remove */}
+                <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  {/* Product Name */}
+                  <div className="flex-1 min-w-0">
+                    <span className="font-semibold text-gray-800 block truncate">
+                      {item.product.name}
+                    </span>
+                  </div>
 
-                    {/* Mobile Quantity + Remove Row */}
-                    <div className="flex justify-between items-center w-full sm:w-auto mt-2 sm:mt-0">
-                      {/* Quantity Left */}
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() =>
-                            updateCartQuantity(item.product.id, item.quantity - 1)
-                          }
-                          disabled={item.quantity <= 1}
-                          className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md disabled:opacity-50"
-                        >
-                          -
-                        </button>
-                        <span className="font-semibold w-8 text-center">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() =>
-                            updateCartQuantity(item.product.id, item.quantity + 1)
-                          }
-                          className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md"
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      {/* Remove Button Right */}
+                  {/* Mobile Quantity + Remove Row */}
+                  <div className="flex justify-between items-center w-full sm:w-auto mt-2 sm:mt-0">
+                    {/* Quantity Left */}
+                    <div className="flex items-center gap-2 text-black">
                       <button
-                        className="text-gray-500 hover:text-red-500 text-2xl"
-                        onClick={() => removeFromCart(item.product.id)}
+                        onClick={() =>
+                          updateCartQuantity(item.product.id, item.quantity - 1)
+                        }
+                        disabled={item.quantity <= 1}
+                        className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md disabled:opacity-50"
                       >
-                        &times;
+                        -
+                      </button>
+                      <span className="font-semibold w-8 text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() =>
+                          updateCartQuantity(item.product.id, item.quantity + 1)
+                        }
+                        className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md"
+                      >
+                        +
                       </button>
                     </div>
 
-                    {/* Desktop Price */}
-                    <div className="font-semibold text-lg text-gray-800 text-right sm:w-24 hidden sm:block">
-                      ৳{(item.product.price * item.quantity).toFixed(2)}
+                    <div className="flex items-center gap-5 ml-4">
+                      <label
+                        htmlFor={`size-${item.product.id}`}
+                        className="text-sm text-gray-600"
+                      >
+                        Size
+                      </label>
+                      <select
+                        required
+                        id={`size-${item.product.id}`}
+                        defaultValue={
+                          typeof window !== "undefined"
+                            ? localStorage.getItem(`size-${item.product.id}`) ??
+                              "M"
+                            : "M"
+                        }
+                        onChange={(e) =>
+                          typeof window !== "undefined" &&
+                          localStorage.setItem(
+                            `size-${item.product.id}`,
+                            e.target.value
+                          )
+                        }
+                        className="border border-gray-300 rounded-md px-2 py-1 bg-white text-black"
+                        aria-label={`Select size for ${item.product.name}`}
+                      >
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                      </select>
                     </div>
+
+                    {/* Remove Button Right */}
+                    <button
+                      className="text-gray-500 hover:text-red-500 text-2xl"
+                      onClick={() => removeFromCart(item.product.id)}
+                    >
+                      &times;
+                    </button>
                   </div>
 
-                  {/* Mobile Price Below */}
-                  <div className="text-gray-800 font-semibold text-lg block sm:hidden mt-2">
+                  {/* Desktop Price */}
+                  <div className="font-semibold text-lg text-gray-800 text-right sm:w-24 hidden sm:block">
                     ৳{(item.product.price * item.quantity).toFixed(2)}
                   </div>
                 </div>
-              ))}
-            </div>
 
-            {/* Order Summary */}
-            <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 sticky top-20">
-              <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
-                Order Summary
-              </h3>
-              <div className="space-y-4">
-                <div className="flex justify-between text-lg">
-                  <span>Subtotal</span>
-                  <span>৳{subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span>Shipping</span>
-                  <span>৳{shipping.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
-                  <span>Total</span>
-                  <span>৳{total.toFixed(2)}</span>
+                {/* Mobile Price Below */}
+                <div className="text-gray-800 font-semibold text-lg block sm:hidden mt-2">
+                  ৳{(item.product.price * item.quantity).toFixed(2)}
                 </div>
               </div>
-              <button
-                className="w-full mt-6 py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
-                onClick={handleCheckout}
-              >
-                Proceed to Checkout
-              </button>
-            </div>
+            ))}
           </div>
 
-          <ShippingPolicy />
+          {/* Order Summary */}
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 sticky top-20">
+            <h3 className="text-2xl text-black font-semibold mb-6 pb-4 border-b">
+              Order Summary
+            </h3>
+            <div className="space-y-4 text-black">
+              <div className="flex justify-between text-lg">
+                <span>Subtotal</span>
+                <span>৳{subtotal.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-lg">
+                <span>Shipping</span>
+                <span>৳{shipping.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
+                <span>Total</span>
+                <span>৳{total.toFixed(2)}</span>
+              </div>
+            </div>
+            <button
+              className="w-full mt-6 py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
+              onClick={handleCheckout}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
         </div>
-      </section>
 
-
+        <ShippingPolicy />
+      </div>
+    </section>
   );
 };
 
@@ -787,6 +817,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
     name: "",
     address: "",
     phone: "",
+    size: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -825,6 +856,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
 
     body += `
             -------------------
+            Size: ${formData.size}
             Subtotal: ৳${subtotal.toFixed(2)}
             Shipping: ৳${shipping.toFixed(2)}
             Total: ৳${total.toFixed(2)}
@@ -873,72 +905,98 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
               Shipping Information
             </h3>
-           <form onSubmit={handleSubmit}>
-            <div className="relative mb-6">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                placeholder="Full Name"
-                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
-              />
-              <label
-                htmlFor="name"
-                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+            <form onSubmit={handleSubmit}>
+              <div className="relative mb-6">
+                <select
+                  required
+                  id={`size-${cart[0]?.product.id}`}
+                  defaultValue={
+                    typeof window !== "undefined"
+                      ? localStorage.getItem(`size-${cart[0]?.product.id}`) ??
+                        "M"
+                      : "M"
+                  }
+                  onChange={(e) =>
+                    typeof window !== "undefined" &&
+                    localStorage.setItem(
+                      `size-${cart[0]?.product.id}`,
+                      e.target.value
+                    )
+                  }
+                  className="border w-full h-12 border-gray-300 rounded-md px-2 py-1 bg-white text-black"
+                >
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+                <label
+                  htmlFor="name"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+                >
+                  Size
+                </label>
+              </div>
+              <div className="relative mb-6">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Full Name"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+                />
+                <label
+                  htmlFor="name"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+                >
+                  Full Name
+                </label>
+              </div>
+              <div className="relative mb-6">
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Address / Location"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+                />
+                <label
+                  htmlFor="address"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+                >
+                  Address / Location
+                </label>
+              </div>
+              <div className="relative mb-6">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Phone Number"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+                />
+                <label
+                  htmlFor="phone"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+                >
+                  Phone Number
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
               >
-                Full Name
-              </label>
-            </div>
-
-            <div className="relative mb-6">
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                required
-                placeholder="Address / Location"
-                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
-              />
-              <label
-                htmlFor="address"
-                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
-              >
-                Address / Location
-              </label>
-            </div>
-
-            <div className="relative mb-6">
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-                placeholder="Phone Number"
-                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
-              />
-              <label
-                htmlFor="phone"
-                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
-              >
-                Phone Number
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
-            >
-              Place Order
-            </button>
-          </form>
-
+                Place Order
+              </button>
+            </form>
           </div>
           <div className="bg-white text-black p-8 rounded-lg shadow-md border sticky top-32">
             <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
@@ -1259,7 +1317,6 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
               </svg>
             </a>
           </div>
-
         </div>
       </div>
       <div className="border-t border-gray-700 text-center pt-8 text-sm">
