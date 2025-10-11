@@ -905,6 +905,19 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
               Shipping Information
             </h3>
+            {cart.map((item) => (
+              <div
+                className="flex justify-between text-black text-2xl font-medium mb-4"
+                key={item.product.id}
+              >
+                <span>
+                  {item.product.name} x {item.quantity}
+                </span>
+                <span className="font-medium">
+                  ৳{(item.product.price * item.quantity).toFixed(2)}
+                </span>
+              </div>
+            ))}
             <form onSubmit={handleSubmit}>
               <div className="relative mb-6">
                 <select
