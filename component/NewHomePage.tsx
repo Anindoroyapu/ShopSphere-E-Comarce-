@@ -2,7 +2,9 @@
 import Image, { type StaticImageData } from "next/image";
 import React, { useState } from "react";
 import logo from "@/public/logo.png";
+import banner from "@/public/banner.png";
 import { allProducts } from "./Product";
+
 type Category = "Apparel" | "Footwear" | "Accessories";
 
 interface Product {
@@ -52,14 +54,14 @@ const Header = ({
   };
 
   return (
-    <header className="bg-white py-4 border-b border-gray-200 sticky top-0 z-50">
+   <header className="bg-[#0B1A3A] py-4 border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
         <nav className="flex justify-between items-center">
           <div
             className="flex items-center text-xl font-semibold text-gray-800 cursor-pointer"
             onClick={() => navigate("home")}
           >
-            <div className="inline-block size-20 mr-7 h-12 transform scale-150 -mt-12  origin-left">
+            <div className="inline-block size-20 mr-7 h-12 transform scale-150 -mt-12 origin-left">
               <Image
                 src={logo}
                 alt="LiveFlashback Logo"
@@ -67,73 +69,38 @@ const Header = ({
                 height={50}
               />
             </div>
-            LiveFlashback
+           
           </div>
           <ul className="hidden lg:flex gap-8">
-            <li>
-              <a
-                onClick={() => navigate("home")}
-                className={`font-medium pb-2 cursor-pointer ${
-                  currentPage === "home"
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => navigate("shop")}
-                className={`font-medium pb-2 cursor-pointer ${
-                  currentPage === "shop"
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                Shop
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => navigate("categories")}
-                className={`font-medium pb-2 cursor-pointer ${
-                  currentPage === "categories"
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                Categories
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => navigate("about")}
-                className={`font-medium pb-2 cursor-pointer ${
-                  currentPage === "about"
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                About Us
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => navigate("contact")}
-                className={`font-medium pb-2 cursor-pointer ${
-                  currentPage === "contact"
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-600"
-                }`}
-              >
-                Contact
-              </a>
-            </li>
+            {[
+              { name: "Home", key: "home" },
+              { name: "Shop", key: "shop" },
+              { name: "Categories", key: "categories" },
+              { name: "About Us", key: "about" },
+              { name: "Contact", key: "contact" },
+            ].map((item) => (
+              <li key={item.key}>
+                <a
+                  onClick={() => navigate(item.key)}
+                  className={`font-medium pb-2 cursor-pointer relative transition-all duration-300
+                    ${
+                      currentPage === item.key
+                        ? "text-[#D4AF37] border-b-2 border-[#D4AF37]"
+                        : "text-gray-400 hover:text-[#D4AF37]"
+                    }
+                    after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px]
+                    after:bg-[#D4AF37] hover:after:w-full after:transition-all after:duration-300
+                  `}
+                >
+                  {item.name}
+                </a>
+              </li>
+            ))}
           </ul>
+
           <div className="flex items-center gap-6">
             <svg
-              className="w-6 h-6 text-gray-700"
+              className="w-6 h-6 text-gray-500 hover:text-[#D4AF37] cursor-pointer transition-colors duration-300"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -146,12 +113,13 @@ const Header = ({
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
               />
             </svg>
+
             <div
               className="relative cursor-pointer"
               onClick={() => navigate("cart")}
             >
               <svg
-                className="w-6 h-6 text-gray-700"
+                className="w-6 h-6 text-gray-500 hover:text-[#D4AF37] transition-colors duration-300"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -164,6 +132,7 @@ const Header = ({
                   d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.838-5.513A1.875 1.875 0 0018.618 6H6.118a1.875 1.875 0 00-1.838 2.335L6.342 14.25zM7.5 14.25h11.218"
                 />
               </svg>
+
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2.5 bg-blue-600 text-white rounded-full w-5 h-5 flex justify-center items-center text-xs font-semibold">
                   {cartCount}
@@ -171,6 +140,7 @@ const Header = ({
               )}
             </div>
           </div>
+
         </nav>
       </div>
     </header>
@@ -182,28 +152,41 @@ interface HeroProps {
 }
 
 const Hero = ({ setCurrentPage }: HeroProps) => (
-  <section
-    className="relative h-[60vh] bg-cover bg-center text-white flex flex-col justify-center items-center text-center"
-    style={{
-      backgroundImage: `url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2520&auto=format&fit=crop')`,
-    }}
-  >
-    <div className="absolute inset-0 bg-black/50"></div>
-    <div className="relative z-10 p-4">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4">
-        Discover Your Style
-      </h1>
-      <p className="text-lg max-w-2xl mx-auto mb-8">
+ <section
+  className="relative h-[60vh] bg-cover bg-center text-white flex flex-col justify-center items-center text-center md:text-left"
+  style={{
+    backgroundImage: `url('banner.png')`, // 👉 তোমার image path এখানে দাও
+  }}
+>
+  {/* Overlay */}
+  {/* <div className="absolute inset-0 bg-black/50"></div> */}
+
+  {/* Content */}
+  <div className="relative z-10 w-full h-full flex flex-col justify-center md:justify-between p-6 md:p-12">
+    {/* Center Text */}
+    <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left flex-grow">
+      <h3 className="text-lg max-w-2xl mx-auto md:mx-0 mb-4"> NEW SEASON</h3>
+       <h1 className="text-4xl text-[#D4AF37] md:text-5xl font-bold mb-4">
+       FASHION SALE
+      </h1> 
+       <p className="text-lg max-w-2xl mx-auto md:mx-0 mb-8">
         Browse our new collection and find your next favorite outfit.
-      </p>
+      </p> 
+    </div>
+
+    {/* Bottom Left Button */}
+    <div className="flex justify-center md:justify-start">
       <button
-        className="bg-blue-600 text-white py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:bg-blue-700"
+        className="bg-[#0B1A3A] text-[#D4AF37] py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:text-white"
         onClick={() => setCurrentPage("shop")}
       >
         Shop Now
       </button>
     </div>
-  </section>
+  </div>
+</section>
+
+
 );
 
 interface ProductCardProps {
@@ -216,41 +199,68 @@ const ProductCard: React.FC<ProductCardProps> = ({
   product,
   addToCart,
   handleBuyNow,
-}) => (
-  <div className="group border border-gray-200 rounded-lg overflow-hidden bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col">
-    <div className="relative overflow-hidden">
-      <Image
-        src={product.imageUrl}
-        alt={product.name}
-        width={400}
-        height={300}
-        className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-105"
-      />
-      <div className="absolute bottom-[-100px] left-1/2 -translate-x-1/2 flex gap-2 transition-all duration-300 opacity-0 group-hover:bottom-5 group-hover:opacity-100">
-        <button
-          className="bg-blue-600 text-nowrap text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-blue-700"
-          onClick={() => addToCart(product)}
+}) => {
+  const [showButtons, setShowButtons] = useState(false);
+
+  return (
+    <div className="group border border-gray-200 rounded-lg overflow-hidden bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col">
+      
+      {/* Image Container */}
+      <div
+        className="relative overflow-hidden cursor-pointer"
+        onClick={() => setShowButtons(!showButtons)} // Mobile tap toggle
+      >
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          width={400}
+          height={300}
+          className="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+
+        {/* Buttons */}
+        <div
+          className={`
+            absolute left-1/2 -translate-x-1/2 flex gap-2
+            transition-all duration-500
+            md:bottom-[-100px] md:opacity-0 md:group-hover:bottom-5 md:group-hover:opacity-100
+            ${showButtons ? "bottom-5 opacity-100" : ""}
+          `}
+          style={{ transitionProperty: "bottom, opacity" }}
         >
-          Add to Cart
-        </button>
-        <button
-          className="bg-green-600 text-nowrap text-white py-2 px-4 rounded-md font-medium text-sm transition-colors hover:bg-green-700"
-          onClick={() => handleBuyNow(product)}
-        >
-          Buy Now
-        </button>
+          {/* Add to Cart Button */}
+          <button
+            className="bg-[#0B1A3A] text-[#D4AF37] whitespace-nowrap py-2 px-4 rounded-md font-medium text-sm transition-colors hover:text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              addToCart(product);
+            }}
+          >
+            Add to Cart
+          </button>
+
+          {/* Buy Now Button */}
+          <button
+            className="bg-green-800 text-white whitespace-nowrap py-2 px-4 rounded-md font-medium text-sm transition-colors hover:text-[#D4AF37]"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleBuyNow(product);
+            }}
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
+
+      {/* Product Info */}
+      <div className="p-5 text-center mt-auto">
+        <h3 className="text-lg font-semibold text-gray-600 mb-2">{product.name}</h3>
+        <p className="text-xl font-bold text-[#D4AF37]">{product.price.toFixed(2)} ৳</p>
       </div>
     </div>
-    <div className="p-5 text-center mt-auto">
-      <h3 className="text-lg font-semibold text-gray-800 mb-2">
-        {product.name}
-      </h3>
-      <p className="text-xl font-bold text-blue-600">
-        ৳{product.price.toFixed(2)}
-      </p>
-    </div>
-  </div>
-);
+  );
+};
+
 
 interface FeaturedProductsProps {
   addToCart: (product: Product) => void;
@@ -267,7 +277,7 @@ const FeaturedProducts = ({
         Featured Products
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {featuredProducts.map((product) => (
+        {featuredProducts.slice().reverse().map((product) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -384,6 +394,7 @@ const ContactPage = () => {
               Send us a Message
             </h3>
             <form onSubmit={handleSubmit}>
+              {/* Name Field */}
               <div className="relative mb-6">
                 <input
                   type="text"
@@ -391,15 +402,17 @@ const ContactPage = () => {
                   name="name"
                   required
                   placeholder="Full Name"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A] hover:border-[#D4AF37] transition-colors duration-300"
                 />
                 <label
                   htmlFor="name"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
                 >
                   Full Name
                 </label>
               </div>
+
+              {/* Email Field */}
               <div className="relative mb-6">
                 <input
                   type="email"
@@ -407,15 +420,17 @@ const ContactPage = () => {
                   name="email"
                   required
                   placeholder="Email Address"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A] hover:border-[#D4AF37] transition-colors duration-300"
                 />
                 <label
                   htmlFor="email"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
                 >
                   Email Address
                 </label>
               </div>
+
+              {/* Subject Field */}
               <div className="relative mb-6">
                 <input
                   type="text"
@@ -423,15 +438,17 @@ const ContactPage = () => {
                   name="subject"
                   required
                   placeholder="Subject"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A] hover:border-[#D4AF37] transition-colors duration-300"
                 />
                 <label
                   htmlFor="subject"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
                 >
                   Subject
                 </label>
               </div>
+
+              {/* Message Field */}
               <div className="relative mb-6">
                 <textarea
                   id="message"
@@ -439,22 +456,25 @@ const ContactPage = () => {
                   rows={5}
                   required
                   placeholder="Message"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A] hover:border-[#D4AF37] transition-colors duration-300"
                 ></textarea>
                 <label
                   htmlFor="message"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
                 >
                   Message
                 </label>
               </div>
+
+              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-3 bg-blue-600 text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:bg-blue-700"
+                className="w-full py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors duration-300 hover:text-[#D4AF37]"
               >
                 Send Message
               </button>
             </form>
+
           </div>
           <div className="bg-white p-8 rounded-lg shadow-md">
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
@@ -642,94 +662,118 @@ const CartPage = ({
   }
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
-        <h2 className="text-center text-4xl font-semibold mb-12 text-gray-800">
-          Your Shopping Cart
-        </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 items-start">
-          <div className="flex flex-col gap-6">
-            {cart.map((item) => (
-              <div
-                className="flex items-center gap-4 bg-white p-4 rounded-lg border border-gray-200"
-                key={item.product.id}
-              >
-                <Image
-                  src={item.product.imageUrl}
-                  alt={item.product.name}
-                  className="w-24 h-24 object-cover rounded-md"
-                />
-                <div className="flex-grow">
-                  <span className="font-semibold text-gray-800 block">
-                    {item.product.name}
-                  </span>
-                  <span className="text-gray-600">
-                    ৳{item.product.price.toFixed(2)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() =>
-                      updateCartQuantity(item.product.id, item.quantity - 1)
-                    }
-                    disabled={item.quantity <= 1}
-                    className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md disabled:opacity-50"
-                  >
-                    -
-                  </button>
-                  <span className="font-semibold w-8 text-center">
-                    {item.quantity}
-                  </span>
-                  <button
-                    onClick={() =>
-                      updateCartQuantity(item.product.id, item.quantity + 1)
-                    }
-                    className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md"
-                  >
-                    +
-                  </button>
-                </div>
-                <div className="font-semibold text-lg text-gray-800 w-24 text-right">
-                  ৳{(item.product.price * item.quantity).toFixed(2)}
-                </div>
-                <button
-                  className="text-gray-500 hover:text-red-500 text-2xl"
-                  onClick={() => removeFromCart(item.product.id)}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <h2 className="text-center text-4xl font-semibold mb-12 text-gray-800">
+            Your Shopping Cart
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8 items-start">
+            {/* Cart Items */}
+            <div className="flex flex-col gap-6">
+              {cart.map((item) => (
+                <div
+                  className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white p-4 rounded-lg border border-gray-200"
+                  key={item.product.id}
                 >
-                  &times;
-                </button>
-              </div>
-            ))}
-          </div>
-          <div className="bg-white p-8 rounded-lg border border-gray-200 sticky top-32">
-            <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
-              Order Summary
-            </h3>
-            <div className="space-y-4">
-              <div className="flex justify-between text-lg">
-                <span>Subtotal</span>
-                <span>৳{subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-lg">
-                <span>Shipping</span>
-                <span>৳{shipping.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
-                <span>Total</span>
-                <span>৳{total.toFixed(2)}</span>
-              </div>
+                  {/* Product Image */}
+                  <Image
+                    src={item.product.imageUrl}
+                    alt={item.product.name}
+                    className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-md flex-shrink-0"
+                  />
+
+                  {/* Name + Quantity + Remove */}
+                  <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    {/* Product Name */}
+                    <div className="flex-1 min-w-0">
+                      <span className="font-semibold text-gray-800 block truncate">
+                        {item.product.name}
+                      </span>
+                    </div>
+
+                    {/* Mobile Quantity + Remove Row */}
+                    <div className="flex justify-between items-center w-full sm:w-auto mt-2 sm:mt-0">
+                      {/* Quantity Left */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() =>
+                            updateCartQuantity(item.product.id, item.quantity - 1)
+                          }
+                          disabled={item.quantity <= 1}
+                          className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md disabled:opacity-50"
+                        >
+                          -
+                        </button>
+                        <span className="font-semibold w-8 text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() =>
+                            updateCartQuantity(item.product.id, item.quantity + 1)
+                          }
+                          className="w-8 h-8 border border-gray-300 bg-gray-100 rounded-md"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {/* Remove Button Right */}
+                      <button
+                        className="text-gray-500 hover:text-red-500 text-2xl"
+                        onClick={() => removeFromCart(item.product.id)}
+                      >
+                        &times;
+                      </button>
+                    </div>
+
+                    {/* Desktop Price */}
+                    <div className="font-semibold text-lg text-gray-800 text-right sm:w-24 hidden sm:block">
+                      ৳{(item.product.price * item.quantity).toFixed(2)}
+                    </div>
+                  </div>
+
+                  {/* Mobile Price Below */}
+                  <div className="text-gray-800 font-semibold text-lg block sm:hidden mt-2">
+                    ৳{(item.product.price * item.quantity).toFixed(2)}
+                  </div>
+                </div>
+              ))}
             </div>
-            <button
-              className="w-full mt-6 py-3 bg-green-600 text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:bg-green-700"
-              onClick={handleCheckout}
-            >
-              Proceed to Checkout
-            </button>
+
+            {/* Order Summary */}
+            <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 sticky top-20">
+              <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
+                Order Summary
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between text-lg">
+                  <span>Subtotal</span>
+                  <span>৳{subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-lg">
+                  <span>Shipping</span>
+                  <span>৳{shipping.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
+                  <span>Total</span>
+                  <span>৳{total.toFixed(2)}</span>
+                </div>
+              </div>
+              <button
+                className="w-full mt-6 py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
+                onClick={handleCheckout}
+              >
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
+
+          <ShippingPolicy />
         </div>
-        <ShippingPolicy />
-      </div>
-    </section>
+      </section>
+
+
   );
 };
 
@@ -808,68 +852,72 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
             <h3 className="text-2xl font-semibold text-gray-800 mb-6">
               Shipping Information
             </h3>
-            <form onSubmit={handleSubmit}>
-              <div className="relative mb-6">
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Full Name"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                />
-                <label
-                  htmlFor="name"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
-                >
-                  Full Name
-                </label>
-              </div>
-              <div className="relative mb-6">
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Address / Location"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                />
-                <label
-                  htmlFor="address"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
-                >
-                  Address / Location
-                </label>
-              </div>
-              <div className="relative mb-6">
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Phone Number"
-                  className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
-                />
-                <label
-                  htmlFor="phone"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
-                >
-                  Phone Number
-                </label>
-              </div>
-              <button
-                type="submit"
-                className="w-full py-3 bg-green-600 text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:bg-green-700"
+           <form onSubmit={handleSubmit}>
+            <div className="relative mb-6">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                placeholder="Full Name"
+                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+              />
+              <label
+                htmlFor="name"
+                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
               >
-                Place Order
-              </button>
-            </form>
+                Full Name
+              </label>
+            </div>
+
+            <div className="relative mb-6">
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                required
+                placeholder="Address / Location"
+                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+              />
+              <label
+                htmlFor="address"
+                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+              >
+                Address / Location
+              </label>
+            </div>
+
+            <div className="relative mb-6">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+                placeholder="Phone Number"
+                className="peer w-full p-3.5 border border-gray-300 rounded-md bg-white placeholder-transparent focus:outline-none focus:border-[#0B1A3A] focus:ring-1 focus:ring-[#0B1A3A]"
+              />
+              <label
+                htmlFor="phone"
+                className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+              >
+                Phone Number
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 bg-[#0B1A3A] text-white rounded-md text-lg font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
+            >
+              Place Order
+            </button>
+          </form>
+
           </div>
           <div className="bg-white text-black p-8 rounded-lg shadow-md border sticky top-32">
             <h3 className="text-2xl font-semibold mb-6 pb-4 border-b">
@@ -920,7 +968,7 @@ const OrderConfirmationPage = ({
     <div className="container mx-auto px-4 lg:px-8">
       <div className="bg-white p-12 rounded-lg text-center max-w-2xl mx-auto shadow-lg border">
         <svg
-          className="w-20 h-20 text-green-500 mx-auto mb-6"
+          className="w-20 h-20 text-[#0B1A3A] mx-auto mb-6"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -941,7 +989,7 @@ const OrderConfirmationPage = ({
           confirmation to your email address.
         </p>
         <button
-          className="bg-blue-600 text-white py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:bg-blue-700"
+          className="bg-[#0B1A3A] text-white py-3 px-8 rounded-md font-medium cursor-pointer transition-colors hover:text-[#D4AF37]"
           onClick={() => setCurrentPage("shop")}
         >
           Continue Shopping
@@ -1021,7 +1069,7 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
     <div className="container mx-auto px-4 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div>
-          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-blue-600">
+          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-[#D4AF37]">
             About liveflashback
           </h3>
           <p className="max-w-sm">
@@ -1031,7 +1079,7 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
           </p>
         </div>
         <div>
-          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-blue-600">
+          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-[#D4AF37]">
             Quick Links
           </h3>
           <ul className="flex flex-col gap-3">
@@ -1070,7 +1118,7 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
           </ul>
         </div>
         <div>
-          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-blue-600">
+          <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-[#D4AF37]">
             Contact & Social
           </h3>
           <div className="flex items-center gap-3 mb-4">
@@ -1114,13 +1162,14 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
               liveflashback90@gmail.com
             </a>
           </div>
-          <div className="flex gap-6">
+          <div className="flex gap-6 items-center">
+            {/* Instagram */}
             <a
               href="https://www.instagram.com/live.flashback_90s?igsh=MW8zZXhtdTlxbnJtZQ=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-white"
+              className="text-gray-400 hover:text-pink-500 transition-colors duration-300"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1132,29 +1181,64 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                className="w-6 h-6"
               >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             </a>
+
+            {/* TikTok (Outline Version) */}
             <a
               href="https://www.tiktok.com/@liveflashback?_t=ZS-8ztFESkum2q&_r=1"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
-              className="hover:text-white"
+              className="text-gray-400 hover:text-blue-500 transition-colors duration-300"
             >
               <svg
-                className="w-6 h-6"
                 xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6"
               >
-                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.03-4.83-.95-6.43-2.98-2.2-2.81-2.96-6.28-2.61-9.72.35-3.45 2.41-6.52 5.43-7.94 1.44-.68 3.04-.9 4.63-.95.02 2.89.01 5.78.02 8.66-.02 1.52-.71 2.86-1.88 3.88-1.16 1.02-2.64 1.37-4.13 1.29-1.55-.07-2.93-.83-3.92-1.94-.95-1.07-1.28-2.48-1.19-3.96.09-1.48.65-2.88 1.64-3.95.98-1.07 2.28-1.69 3.64-1.76.12-.01 2.44-.02 2.44-.02z"></path>
+                <path d="M12 3v9.28a3.72 3.72 0 1 1-3-3.64" />
+                <path d="M12 3c.83 1.17 2.29 2 4 2" />
+              </svg>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="https://www.facebook.com/profile.php?id=61571712914378"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="text-gray-400 hover:text-blue-600 transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6"
+              >
+                <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v3h3v8h3v-8h3l1-3h-4V6a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
           </div>
+
         </div>
       </div>
       <div className="border-t border-gray-700 text-center pt-8 text-sm">
