@@ -4,6 +4,7 @@ import ShippingPolicy from "../shipping-policy/ShippingPolicy";
 import { CheckoutFormSection } from "./CheckoutFormSection";
 
 const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
+  const [insideDhaka, setInsideDhaka] = useState();
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -21,7 +22,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
     0
   );
 
-  const shipping = 120.0;
+  const shipping = insideDhaka ? 60.0 : 120.0;
   const total = subtotal + shipping;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -116,6 +117,8 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
               handleInputChange={handleInputChange}
               handleSubmit={handleSubmit}
               setFormData={setFormData}
+              insideDhaka={insideDhaka}
+              setInsideDhaka={setInsideDhaka}
             />
           </div>
           <div className="bg-white text-black p-8 rounded-lg shadow-md border sticky top-32">
