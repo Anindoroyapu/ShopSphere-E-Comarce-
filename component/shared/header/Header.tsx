@@ -1,3 +1,6 @@
+import { HeaderProps } from "@/component/type";
+import Image from "next/image";
+import logo from "@/public/logo.png";
 const Header = ({
   setCurrentPage,
   currentPage,

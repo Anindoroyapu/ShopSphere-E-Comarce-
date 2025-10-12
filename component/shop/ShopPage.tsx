@@ -1,4 +1,5 @@
 import { allProducts } from "../Product";
+import ProductCard from "../shared/product-card/ProductCard";
 import { ShopPageProps } from "../type";
 
 const ShopPage = ({
