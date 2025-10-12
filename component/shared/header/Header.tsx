@@ -1,11 +1,20 @@
-import { HeaderProps } from "@/component/type";
+import type { HeaderProps } from "@/component/type";
 import Image from "next/image";
 import logo from "@/public/logo.png";
+
+const MENU = [
+  { name: "About Us", key: "about" },
+  { name: "Categories", key: "categories" },
+  { name: "Contact", key: "contact" },
+  { name: "Home", key: "home" },
+  { name: "Shop", key: "shop" },
+];
+
 const Header = ({
-  setCurrentPage,
-  currentPage,
-  setSelectedCategory,
   cartCount,
+  currentPage,
+  setCurrentPage,
+  setSelectedCategory,
 }: HeaderProps) => {
   const navigate = (page: string) => {
     if (page === "shop") {
@@ -31,14 +40,9 @@ const Header = ({
               />
             </div>
           </div>
+
           <ul className="hidden lg:flex gap-8">
-            {[
-              { name: "Home", key: "home" },
-              { name: "Shop", key: "shop" },
-              { name: "Categories", key: "categories" },
-              { name: "About Us", key: "about" },
-              { name: "Contact", key: "contact" },
-            ].map((item) => (
+            {MENU.map((item) => (
               <li key={item.key}>
                 <a
                   onClick={() => navigate(item.key)}

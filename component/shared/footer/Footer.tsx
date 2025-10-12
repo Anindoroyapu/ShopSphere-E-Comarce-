@@ -1,4 +1,89 @@
 import { FooterProps } from "@/component/type";
+import { JSX } from "react";
+
+const quickLinks: { label: string; page: string }[] = [
+  { label: "About Us", page: "about" },
+  { label: "Contact Us", page: "contact" },
+  { label: "FAQ", page: "home" },
+  { label: "Shipping & Returns", page: "about" },
+];
+
+const socialLinks: {
+  href: string;
+  ariaLabel: string;
+  className?: string;
+  icon: JSX.Element;
+}[] = [
+  {
+    href: "https://www.instagram.com/live.flashback_90s?igsh=MW8zZXhtdTlxbnJtZQ==",
+    ariaLabel: "Instagram",
+    className:
+      "text-gray-400 hover:text-pink-500 transition-colors duration-300",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-6 h-6"
+      >
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://www.tiktok.com/@liveflashback?_t=ZS-8ztFESkum2q&_r=1",
+    ariaLabel: "TikTok",
+    className:
+      "text-gray-400 hover:text-blue-500 transition-colors duration-300",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-6 h-6"
+      >
+        <path d="M12 3v9.28a3.72 3.72 0 1 1-3-3.64" />
+        <path d="M12 3c.83 1.17 2.29 2 4 2" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://www.facebook.com/profile.php?id=61571712914378",
+    ariaLabel: "Facebook",
+    className:
+      "text-gray-400 hover:text-blue-600 transition-colors duration-300",
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-6 h-6"
+      >
+        <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v3h3v8h3v-8h3l1-3h-4V6a1 1 0 0 1 1-1h3z" />
+      </svg>
+    ),
+  },
+];
 
 const Footer = ({ setCurrentPage }: FooterProps) => (
   <footer className="bg-gray-800 text-gray-400 pt-16 pb-8">
@@ -14,49 +99,30 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
             service.
           </p>
         </div>
+
         <div>
           <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-[#D4AF37]">
             Quick Links
           </h3>
           <ul className="flex flex-col gap-3">
-            <li>
-              <a
-                onClick={() => setCurrentPage("about")}
-                className="hover:text-white cursor-pointer"
-              >
-                About Us
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => setCurrentPage("contact")}
-                className="hover:text-white cursor-pointer"
-              >
-                Contact Us
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => setCurrentPage("home")}
-                className="hover:text-white cursor-pointer"
-              >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => setCurrentPage("about")}
-                className="hover:text-white cursor-pointer"
-              >
-                Shipping & Returns
-              </a>
-            </li>
+            {quickLinks.map((link) => (
+              <li key={link.label}>
+                <a
+                  onClick={() => setCurrentPage(link.page)}
+                  className="hover:text-white cursor-pointer"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+
         <div>
           <h3 className="text-white text-lg font-semibold mb-4 pb-2 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-[#D4AF37]">
             Contact & Social
           </h3>
+
           <div className="flex items-center gap-3 mb-4">
             <svg
               className="w-5 h-5 text-blue-600 flex-shrink-0"
@@ -76,6 +142,7 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
               01725663176
             </a>
           </div>
+
           <div className="flex items-center gap-3 mb-6">
             <svg
               className="w-5 h-5 text-blue-600 flex-shrink-0"
@@ -98,84 +165,24 @@ const Footer = ({ setCurrentPage }: FooterProps) => (
               liveflashback90@gmail.com
             </a>
           </div>
+
           <div className="flex gap-6 items-center">
-            {/* Instagram */}
-            <a
-              href="https://www.instagram.com/live.flashback_90s?igsh=MW8zZXhtdTlxbnJtZQ=="
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="text-gray-400 hover:text-pink-500 transition-colors duration-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-6 h-6"
+            {socialLinks.map((link) => (
+              <a
+                key={link.ariaLabel}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.ariaLabel}
+                className={link.className}
               >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </a>
-
-            {/* TikTok (Outline Version) */}
-            <a
-              href="https://www.tiktok.com/@liveflashback?_t=ZS-8ztFESkum2q&_r=1"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="TikTok"
-              className="text-gray-400 hover:text-blue-500 transition-colors duration-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-6 h-6"
-              >
-                <path d="M12 3v9.28a3.72 3.72 0 1 1-3-3.64" />
-                <path d="M12 3c.83 1.17 2.29 2 4 2" />
-              </svg>
-            </a>
-
-            {/* Facebook */}
-            <a
-              href="https://www.facebook.com/profile.php?id=61571712914378"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="text-gray-400 hover:text-blue-600 transition-colors duration-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="w-6 h-6"
-              >
-                <path d="M18 2h-3a4 4 0 0 0-4 4v3H8v3h3v8h3v-8h3l1-3h-4V6a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </a>
+                {link.icon}
+              </a>
+            ))}
           </div>
         </div>
       </div>
+
       <div className="border-t border-gray-700 text-center pt-8 text-sm">
         <p>© 2025 liveflashback. All Rights Reserved.</p>
       </div>
