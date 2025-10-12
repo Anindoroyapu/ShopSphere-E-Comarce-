@@ -3,11 +3,12 @@ import Image from "next/image";
 import logo from "@/public/logo.png";
 
 const MENU = [
-  { name: "About Us", key: "about" },
-  { name: "Categories", key: "categories" },
-  { name: "Contact", key: "contact" },
   { name: "Home", key: "home" },
   { name: "Shop", key: "shop" },
+  { name: "Categories", key: "categories" },
+  { name: "About Us", key: "about" },
+
+  { name: "Contact", key: "contact" },
 ];
 
 const Header = ({
