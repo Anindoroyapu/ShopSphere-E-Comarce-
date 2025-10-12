@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CheckoutPageProps } from "../type";
+import ShippingPolicy from "../shipping-policy/ShippingPolicy";
 
 const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
   const [formData, setFormData] = useState({

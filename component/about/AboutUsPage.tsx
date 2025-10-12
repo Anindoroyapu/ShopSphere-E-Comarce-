@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ShippingPolicy from "../shipping-policy/ShippingPolicy";
 
 const AboutUsPage = () => (
   <section className="py-16 bg-white">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CartPageProps } from "../type";
+import ShippingPolicy from "../shipping-policy/ShippingPolicy";
 
 const CartPage = ({
   cart,

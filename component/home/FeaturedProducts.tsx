@@ -1,4 +1,5 @@
 import { allProducts } from "../Product";
+import ProductCard from "../shared/product-card/ProductCard";
 import { FeaturedProductsProps } from "../type";
 
 const featuredProducts = allProducts.slice(0, 4);
