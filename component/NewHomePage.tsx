@@ -829,6 +829,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
     (sum, item) => sum + item.product.price * item.quantity,
     0
   );
+
   const shipping = 120.0;
   const total = subtotal + shipping;
 
@@ -923,19 +924,25 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
                 <select
                   required
                   id={`size-${cart[0]?.product.id}`}
-                  defaultValue={
-                    typeof window !== "undefined"
+                  name="size"
+                  value={
+                    formData.size ||
+                    (typeof window !== "undefined"
                       ? localStorage.getItem(`size-${cart[0]?.product.id}`) ??
                         "M"
-                      : "M"
+                      : "M")
                   }
-                  onChange={(e) =>
-                    typeof window !== "undefined" &&
-                    localStorage.setItem(
-                      `size-${cart[0]?.product.id}`,
-                      e.target.value
-                    )
-                  }
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    setFormData((prev) => ({ ...prev, size: value }));
+
+                    if (typeof window !== "undefined") {
+                      localStorage.setItem(
+                        `size-${cart[0]?.product.id}`,
+                        value
+                      );
+                    }
+                  }}
                   className="border w-full h-12 border-gray-300 rounded-md px-2 py-1 bg-white text-black"
                 >
                   <option value="M">M</option>
@@ -943,8 +950,8 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
                   <option value="XL">XL</option>
                 </select>
                 <label
-                  htmlFor="name"
-                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-[#0B1A3A]"
+                  htmlFor={`size-${cart[0]?.product.id}`}
+                  className="absolute -top-2.5 left-3 text-sm text-gray-600 bg-white px-1"
                 >
                   Size
                 </label>
