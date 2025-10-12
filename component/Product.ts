@@ -9,101 +9,70 @@ type Category = "Apparel" | "Footwear" | "Accessories";
 
 import lm101 from "@/public/lm101.jpg";
 import lm110 from "@/public/lm110.jpg";
-import lm111 from "@/public/lm111.jpg";
 import lm112 from "@/public/lm112.jpg";
 import lm113 from "@/public/lm113.jpg";
 import lm114 from "@/public/lm114.jpg";
 import lm115 from "@/public/lm115.jpg";
 import lm116 from "@/public/lm116.jpg";
-import lm117 from "@/public/lm117.jpg";
-import lm118 from "@/public/lm118.jpg";
 import lm119 from "@/public/lm119.jpg";
-import lm120 from "@/public/lm120.jpg";
 import { StaticImageData } from "next/image";
 
 export const allProducts: Product[] = [
   {
     id: 1,
-    name: "Classic White Tee",
+    name: "Navy blue solid shirt",
     price: 690.0,
     imageUrl: lm101,
     category: "Apparel",
   },
   {
     id: 2,
-    name: "Denim Jacket",
+    name: "Red & White Vertical Striped Shirt",
     price: 690.0,
     imageUrl: lm110,
     category: "Apparel",
   },
   {
     id: 3,
-    name: "Leather Boots",
-    price: 690.0,
-    imageUrl: lm111,
-    category: "Footwear",
-  },
-  {
-    id: 4,
-    name: "Stylish Sunglasses",
+    name: "Green solid shirt ",
     price: 690.0,
     imageUrl: lm112,
     category: "Accessories",
   },
   {
-    id: 5,
-    name: "Cozy Knit Sweater",
+    id: 4,
+    name: "Sky blue and white stripe shirt",
     price: 690.0,
     imageUrl: lm113,
     category: "Apparel",
   },
   {
-    id: 6,
-    name: "Black Leather Bag",
+    id: 5,
+    name: "Black and white stripe shirt",
     price: 690.0,
     imageUrl: lm114,
     category: "Accessories",
   },
   {
-    id: 7,
-    name: "Modern Wristwatch",
+    id: 6,
+    name: "Black and white stripe shirt2",
     price: 690.0,
     imageUrl: lm115,
     category: "Accessories",
   },
   {
-    id: 8,
-    name: "Casual Sneakers",
+    id: 7,
+    name: "White polo tshirt",
     price: 690.0,
     imageUrl: lm116,
     category: "Footwear",
   },
   {
-    id: 9,
-    name: "Cozy Knit Sweater",
-    price: 690.0,
-    imageUrl: lm117,
-    category: "Apparel",
-  },
-  {
-    id: 10,
-    name: "Black Leather Bag",
-    price: 690.0,
-    imageUrl: lm118,
-    category: "Accessories",
-  },
-  {
-    id: 11,
-    name: "Modern Wristwatch",
+    id: 8,
+    name: "Maroon stripe shirt",
     price: 690.0,
     imageUrl: lm119,
     category: "Accessories",
   },
-  {
-    id: 12,
-    name: "Casual Sneakers",
-    price: 690.0,
-    imageUrl: lm120,
-    category: "Footwear",
-  },
+
 ];
