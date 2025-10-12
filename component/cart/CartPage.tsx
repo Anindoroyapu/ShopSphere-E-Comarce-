@@ -14,7 +14,8 @@ const CartPage = ({
     0
   );
   const shipping = 120.0;
-  const total = subtotal + shipping;
+  // const total = subtotal + shipping;
+  const total = subtotal;
 
   if (cart.length === 0) {
     return (
@@ -46,15 +47,16 @@ const CartPage = ({
             updateCartQuantity={updateCartQuantity}
           />
           {/* Order Summary */}
+        </div>
+        <div className=" grid grid-cols-2 gap-5">
           <SummarySection
             handleCheckout={handleCheckout}
             shipping={shipping}
             subtotal={subtotal}
             total={total}
           />
+          <ShippingPolicy />
         </div>
-
-        <ShippingPolicy />
       </div>
     </section>
   );

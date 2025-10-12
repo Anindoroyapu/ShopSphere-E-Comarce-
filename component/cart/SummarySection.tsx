@@ -7,7 +7,7 @@ const SummarySection: FC<{
   handleCheckout: () => void;
 }> = ({ subtotal, shipping, total, handleCheckout }) => {
   return (
-    <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 sticky top-20">
+    <div className="bg-white p-6 sm:p-8 rounded-lg border border-gray-200 sticky top-20 mt-10">
       <h3 className="text-2xl text-black font-semibold mb-6 pb-4 border-b">
         Order Summary
       </h3>
@@ -16,13 +16,13 @@ const SummarySection: FC<{
           <span>Subtotal</span>
           <span>৳{subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-lg">
+        {/* <div className="flex justify-between text-lg">
           <span>Shipping</span>
           <span>৳{shipping.toFixed(2)}</span>
-        </div>
+        </div> */}
         <div className="flex justify-between text-xl font-bold text-gray-800 pt-4 border-t mt-4">
           <span>Total</span>
-          <span>৳{total.toFixed(2)}</span>
+          <span>৳{total.toFixed(2)} + ডেলিভারি চার্জ</span>
         </div>
       </div>
       <button
