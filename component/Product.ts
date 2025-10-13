@@ -16,6 +16,8 @@ import lm115 from "@/public/lm115.jpg";
 import lm116 from "@/public/lm116.jpg";
 import lm119 from "@/public/lm119.jpg";
 import lm120 from "@/public/lm120.jpg";
+import lm121 from "@/public/lm121.jpg";
+
 
 import { StaticImageData } from "next/image";
 
@@ -50,21 +52,21 @@ export const allProducts: Product[] = [
   },
   {
     id: 5,
-    name: "Black and white stripe shirt",
+    name: "Black and blue stripe shirt",
     price: 690.0,
     imageUrl: lm114,
     category: "Accessories",
   },
   {
     id: 6,
-    name: "Black and white stripe shirt2",
+    name: "Black and white stripe shirt",
     price: 690.0,
     imageUrl: lm115,
     category: "Accessories",
   },
   {
     id: 7,
-    name: "White polo tshirt",
+    name: "White polo t-shirt",
     price: 690.0,
     imageUrl: lm116,
     category: "Footwear",
@@ -74,6 +76,13 @@ export const allProducts: Product[] = [
     name: "Maroon stripe shirt",
     price: 690.0,
     imageUrl: lm119,
+    category: "Accessories",
+  },
+  {
+    id: 9,
+    name: "White solid shirt",
+    price: 690.0,
+    imageUrl: lm121,
     category: "Accessories",
   },
 
