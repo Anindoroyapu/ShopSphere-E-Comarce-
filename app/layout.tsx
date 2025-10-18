@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "ShopSphere",
-  description: "Fashion e-commerce built with Next.js",
+  title: "liveflashback",
+  description: "Develop by Anindo Roy Apu & Farabi Rakib",
 };
 
 export default function RootLayout({
