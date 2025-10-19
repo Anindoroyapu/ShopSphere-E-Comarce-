@@ -1,8 +1,10 @@
 import "./globals.css";
+import { UserProvider } from "@/context/UserContext"; // ✅ Context Provider
+import { Geist, Geist_Mono } from "next/font/google";
 
 export const metadata = {
   title: "liveflashback",
-  description: "Develop by Anindo Roy Apu & Farabi Rakib",
+  description: "Developed by Anindo Roy Apu & Farabi Rakib",
 };
 
 export default function RootLayout({
@@ -12,8 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <main>{children}</main>
+      <body suppressHydrationWarning={true}>
+        <UserProvider>
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
