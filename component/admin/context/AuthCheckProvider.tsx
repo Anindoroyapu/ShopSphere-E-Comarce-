@@ -44,10 +44,7 @@ const AuthCheckProvider = ({ children }: { children: React.ReactNode }) => {
     verifyToken();
   }, [router]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+ 
   return <>{children}</>;
 };
 
