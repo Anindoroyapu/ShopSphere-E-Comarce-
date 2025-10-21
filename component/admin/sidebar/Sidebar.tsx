@@ -28,7 +28,7 @@ const Sidebar = ({
         } lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 flex flex-col`}
       >
         <div className="p-6 text-center border-b border-slate-700">
-          <h2 className="text-xl font-bold">Gemini Commerce</h2>
+          <h2 className="text-xl font-bold">Liveflashback</h2>
         </div>
         <nav className="flex-1 pt-4">
           <ul>
