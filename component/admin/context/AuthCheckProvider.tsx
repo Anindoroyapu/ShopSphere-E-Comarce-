@@ -9,6 +9,7 @@ const AuthCheckProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       router.replace("/login");
       return;
@@ -44,7 +45,10 @@ const AuthCheckProvider = ({ children }: { children: React.ReactNode }) => {
     verifyToken();
   }, [router]);
 
- 
+  // 🔒 Don't render anything until verified
+  if (loading) return null;
+
+  // ✅ Only render children when authenticated
   return <>{children}</>;
 };
 

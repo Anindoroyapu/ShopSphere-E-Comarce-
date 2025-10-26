@@ -2,7 +2,7 @@ import { allProducts } from "../Product";
 import ProductCard from "../shared/product-card/ProductCard";
 import { FeaturedProductsProps } from "../type";
 
-const featuredProducts = allProducts.slice(0, 4);
+const featuredProducts = allProducts.slice().reverse().slice(0, 4);
 
 const FeaturedProducts = ({
   addToCart,
@@ -14,17 +14,14 @@ const FeaturedProducts = ({
         Featured Products
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {featuredProducts
-          .slice()
-          .reverse()
-          .map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              addToCart={addToCart}
-              handleBuyNow={handleBuyNow}
-            />
-          ))}
+        {featuredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            addToCart={addToCart}
+            handleBuyNow={handleBuyNow}
+          />
+        ))}
       </div>
     </div>
   </section>

@@ -19,7 +19,7 @@ import lm120 from "@/public/lm120.jpg";
 import lm121 from "@/public/lm121.jpg";
 import lm122 from "@/public/bhbh.jpeg";
 import lm123 from "@/public/bhbhbh.jpeg";
-import lm124 from "@/public/bhbhbhbh.jpeg";
+import lm124 from "@/public/lm124.jpg";
 
 import { StaticImageData } from "next/image";
 
@@ -95,13 +95,13 @@ export const allProducts: Product[] = [
     category: "Accessories",
   },{
     id: 11,
-    name: "Solid white shirt ",
+    name: "White solid shirt ",
     price: 690.0,
     imageUrl: lm123,
     category: "Accessories",
   },{
     id: 12,
-    name: "Solid Black shirt ",
+    name: "Black solid shirt ",
     price: 690.0,
     imageUrl: lm124,
     category: "Accessories",
