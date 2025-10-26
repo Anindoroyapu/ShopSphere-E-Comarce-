@@ -90,7 +90,7 @@ export const allProducts: Product[] = [
   {
     id: 10,
     name: "PU Leather jacket ",
-    price: 690.0,
+    price: 1700.0,
     imageUrl: lm122,
     category: "Accessories",
   },{
