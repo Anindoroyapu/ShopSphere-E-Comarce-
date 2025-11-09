@@ -3,7 +3,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { LogOut, User as UserIcon, Bell } from "lucide-react";
-import { UserContext } from "@/context/UserContext";
+import { UserContext } from "@/component/context/UserContext";
 
 const Header = ({
   title,
@@ -29,8 +29,7 @@ const Header = ({
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -74,7 +73,9 @@ const Header = ({
             >
               {avatar ? (
                 <Image
-                  src={avatar.startsWith("http") ? avatar : `/uploads/${avatar}`}
+                  src={
+                    avatar.startsWith("http") ? avatar : `/uploads/${avatar}`
+                  }
                   alt={user?.name || "User avatar"}
                   fill
                   className="rounded-full object-cover"

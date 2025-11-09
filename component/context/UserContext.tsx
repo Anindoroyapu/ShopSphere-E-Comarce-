@@ -8,8 +8,8 @@ interface User {
   id: number;
   name: string;
   email: string;
-  role: number;       // 0=customer,1=admin,2=vendor
-  avatar?: string;    // optional avatar
+  role: number; // 0=customer,1=admin,2=vendor
+  avatar?: string; // optional avatar
 }
 
 // ✅ Step 2: Define context interface
@@ -38,43 +38,42 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(false);
 
   // ✅ Load token from localStorage on mount
- useEffect(() => {
-  const savedToken = localStorage.getItem("token");
-  if (savedToken) {
-    setToken(savedToken);
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken);
 
-    // Fetch user data from backend
-    const fetchUser = async () => {
-      try {
-        const res = await fetch("http://127.0.0.1:8000/api/check-token", {
-          headers: {
-            Authorization: `Bearer ${savedToken}`,
-            Accept: "application/json",
-          },
-        });
-        if (!res.ok) throw new Error("Failed to fetch user");
-        const data = await res.json();
+      // Fetch user data from backend
+      const fetchUser = async () => {
+        try {
+          const res = await fetch("http://admin.ashaa.xyz/api/Contact", {
+            headers: {
+              Authorization: `Bearer ${savedToken}`,
+              Accept: "application/json",
+            },
+          });
+          if (!res.ok) throw new Error("Failed to fetch user");
+          const data = await res.json();
 
-        const loggedInUser: User = {
-          id: data.user.id,
-          name: data.user.name,
-          email: data.user.email,
-          role: data.user.role,
-          avatar: data.user.avatar || "",
-        };
-        setUser(loggedInUser);
-      } catch (error) {
-        console.error("Error fetching user on mount:", error);
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-      }
-    };
+          const loggedInUser: User = {
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            role: data.user.role,
+            avatar: data.user.avatar || "",
+          };
+          setUser(loggedInUser);
+        } catch (error) {
+          console.error("Error fetching user on mount:", error);
+          localStorage.removeItem("token");
+          setToken(null);
+          setUser(null);
+        }
+      };
 
-    fetchUser();
-  }
-}, []);
-
+      fetchUser();
+    }
+  }, []);
 
   // ✅ Handle login
   const login = async (email: string, password: string) => {

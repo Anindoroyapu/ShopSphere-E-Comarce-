@@ -4,11 +4,12 @@ import Image from "next/image";
 import React, { FC, useState, useContext } from "react";
 import EyeIcon from "@/public/icons/eye.svg";
 import CloseIcon from "@/public/icons/eye-close.svg";
-import { UserContext } from "@/context/UserContext";
+import { UserContext } from "@/component/context/UserContext";
 
 const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
   const LabelItem: FC<{ text: string }> = ({ text }) => (
     <label className="block text-gray-700 mb-1">{text}</label>

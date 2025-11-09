@@ -1,48 +1,21 @@
+import { useEffect, useState } from "react";
 import StatusBadge from "../shared/StatusBadge";
 
 const ProductsPage = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Wireless Headphones",
-      category: "Electronics",
-      price: "$99.99",
-      stock: 150,
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Organic Green Tea",
-      category: "Groceries",
-      price: "$12.50",
-      stock: 0,
-      status: "Inactive",
-    },
-    {
-      id: 3,
-      name: "Running Shoes",
-      category: "Apparel",
-      price: "$120.00",
-      stock: 80,
-      status: "Active",
-    },
-    {
-      id: 4,
-      name: "Modern Coffee Table",
-      category: "Furniture",
-      price: "$250.00",
-      stock: 25,
-      status: "Active",
-    },
-    {
-      id: 5,
-      name: "Yoga Mat",
-      category: "Sports",
-      price: "$35.00",
-      stock: 200,
-      status: "Active",
-    },
-  ];
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await get<any>(`/Booking`);
+        console.log(data, "data");
+        setProducts(data as any);
+      } catch (ex: any) {
+        setMessage("error", handleAxiosError(ex));
+      } finally {
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">

@@ -10,7 +10,11 @@ interface ContactContextType {
 
 const ContactContext = createContext<ContactContextType | null>(null);
 
-export const ContactProvider = ({ children }: { children: React.ReactNode }) => {
+export const ContactProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -23,7 +27,7 @@ export const ContactProvider = ({ children }: { children: React.ReactNode }) => 
 
     try {
       // ✅ Laravel backend API route
-      const res = await fetch("http://localhost:8000/api/contact", {
+      const res = await fetch("http://localhost:5050/api/Contact", {
         method: "POST",
         body: formData,
       });

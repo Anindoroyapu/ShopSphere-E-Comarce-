@@ -1,5 +1,5 @@
 import "./globals.css";
-import { UserProvider } from "@/context/UserContext"; // ✅ Context Provider
+import { UserProvider } from "@/component/context/UserContext"; // ✅ Context Provider
 import { Geist, Geist_Mono } from "next/font/google";
 
 export const metadata = {
@@ -15,9 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <UserProvider>
-          {children}
-        </UserProvider>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

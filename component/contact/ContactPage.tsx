@@ -1,9 +1,11 @@
 "use client";
 
-import { ContactProvider, useContact } from "@/context/ContactContext";
+import {
+  ContactProvider,
+  useContact,
+} from "@/component/context/ContactContext";
 import { ContactFormSection } from "./ContactFormSection";
 import { ContactInfo } from "./ContactInfo";
-
 
 const ContactContent = () => {
   const { handleSubmit, loading, message } = useContact();
@@ -24,7 +26,9 @@ const ContactContent = () => {
             <ContactFormSection handleSubmit={handleSubmit} />
 
             {loading && (
-              <p className="text-gray-500 mt-3 text-center">Sending message...</p>
+              <p className="text-gray-500 mt-3 text-center">
+                Sending message...
+              </p>
             )}
             {message && <p className="mt-3 text-center">{message}</p>}
           </div>
