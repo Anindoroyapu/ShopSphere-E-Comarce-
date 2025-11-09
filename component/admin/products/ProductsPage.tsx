@@ -1,3 +1,4 @@
+import Link from "next/link";
 import StatusBadge from "../shared/StatusBadge";
 
 const ProductsPage = () => {
@@ -48,9 +49,9 @@ const ProductsPage = () => {
     <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <h2 className="text-xl font-semibold text-slate-800">Products</h2>
-        <button className="bg-green-500 text-white font-bold py-2 px-4 rounded-md hover:bg-green-600 transition">
+        <Link href={"/add-product?=vjnbjhvbiuewvbaiwebcibncibnvciuahbiuceh9y43u798ydf7454y3658f4qh394fnc934pfh834f67y5gf734hf9jec"} className="bg-green-500 text-white font-bold py-2 px-4 rounded-md hover:bg-green-600 transition">
           Add New Product
-        </button>
+        </Link>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-left">

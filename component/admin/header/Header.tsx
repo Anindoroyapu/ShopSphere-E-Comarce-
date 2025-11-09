@@ -34,7 +34,7 @@ const Header = ({
   }, []);
 
   return (
-    <header className="p-4 sm:p-6 lg:p-8 flex justify-between items-center bg-slate-100 sticky top-0 z-20 shadow-sm">
+    <header className="p-4  sm:p-6 lg:p-4 flex justify-between items-center bg-slate-100 sticky top-0 z-20 shadow-sm">
       {/* Left: Title + Menu */}
       <div className="flex items-center">
         <button
