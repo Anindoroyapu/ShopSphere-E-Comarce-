@@ -44,7 +44,7 @@ const MainPage = () => {
         isSidebarOpen={isSidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
-      <div className="flex-1 lg:ml-64 bg-slate-100">
+      <div className="flex-1   lg:ml-64 bg-slate-100">
         <Header title={activePage} setSidebarOpen={setSidebarOpen} />
         <main className="p-4 sm:p-6 lg:p-8 pt-0">{renderActivePage()}</main>
       </div>

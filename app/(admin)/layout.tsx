@@ -13,7 +13,9 @@ export default function AdminLayout({
 }) {
   return (
     <main>
-      <AuthCheckProvider>{children}</AuthCheckProvider>
+      {/* <AuthCheckProvider> */}
+        {children}
+        {/* </AuthCheckProvider> */}
     </main>
   );
 }
