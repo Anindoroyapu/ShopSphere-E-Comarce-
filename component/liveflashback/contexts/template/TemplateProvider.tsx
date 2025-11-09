@@ -3,12 +3,16 @@ import React, { createContext, use, useMemo, useRef, useState } from "react";
 import MessageTemplate from "./MessageTemplate";
 import { Message } from "./TemplateTypes";
 import ConfirmTemplate, { confirmTypeProps } from "./ConfirmTemplate";
-import { TState } from "@/deshialumni/types/event";
+import { TState } from "../../types/event";
 
 interface TemplateContextType {
   suggestRef: React.RefObject<HTMLElement | null>;
   message: any | null;
-  setMessage: (type: "error" | "success" | "warning" | "info", text: string | Error | null | undefined, stay?: number) => void;
+  setMessage: (
+    type: "error" | "success" | "warning" | "info",
+    text: string | Error | null | undefined,
+    stay?: number
+  ) => void;
   confirm: confirmTypeProps;
   setConfirm: (value: confirmTypeProps) => void;
   templateLoading: boolean;
@@ -23,14 +27,18 @@ interface TemplateContextType {
   setRemove?: TState<boolean>;
 }
 
-const TemplateContext = createContext<TemplateContextType | undefined>(undefined);
+const TemplateContext = createContext<TemplateContextType | undefined>(
+  undefined
+);
 
 export function useTemplate() {
   const context = use(TemplateContext);
   return context as TemplateContextType;
 }
 
-const TemplateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const TemplateProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const suggestRef = useRef<HTMLElement>(null);
   const [message2, setMessage2] = useState<Message>({
     type: "error",
@@ -59,7 +67,11 @@ const TemplateProvider: React.FC<{ children: React.ReactNode }> = ({ children })
       setShowDialog({ type: "", data: null });
     };
 
-    const setMessage = (type: "error" | "success" | "warning" | "info", text: string | Error | null | undefined, stay?: number) => {
+    const setMessage = (
+      type: "error" | "success" | "warning" | "info",
+      text: string | Error | null | undefined,
+      stay?: number
+    ) => {
       const mStay = stay && stay > 3000 && stay < 10000 ? stay : 6000;
 
       if (typeof text === "string") {
@@ -107,7 +119,11 @@ const TemplateProvider: React.FC<{ children: React.ReactNode }> = ({ children })
     <TemplateContext.Provider value={value}>
       {children}
       <MessageTemplate message={message2} setMessage={setMessage2} />
-      <ConfirmTemplate confirm={confirm} setConfirm={setConfirm} templateLoading={templateLoading} />
+      <ConfirmTemplate
+        confirm={confirm}
+        setConfirm={setConfirm}
+        templateLoading={templateLoading}
+      />
     </TemplateContext.Provider>
   );
 };

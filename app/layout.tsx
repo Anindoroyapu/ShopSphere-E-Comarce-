@@ -1,6 +1,7 @@
 import "./globals.css";
 import { UserProvider } from "@/component/context/UserContext"; // ✅ Context Provider
-import { Geist, Geist_Mono } from "next/font/google";
+import TemplateProvider from "@/component/liveflashback/contexts/template/TemplateProvider";
+import ComposeProviders from "@/component/shared/ComposeProviders";
 
 export const metadata = {
   title: "liveflashback",
@@ -15,7 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <UserProvider>{children}</UserProvider>
+        <ComposeProviders components={[TemplateProvider]}>
+          <main>
+            <UserProvider>{children}</UserProvider>
+          </main>
+        </ComposeProviders>
       </body>
     </html>
   );
