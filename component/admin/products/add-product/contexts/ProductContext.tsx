@@ -1,76 +1,80 @@
 "use client";
-import React, { createContext, useContext, useState,  ReactNode } from 'react';
-import { Product, ProductStatus } from '../types';
-
-
-interface ToastMessage {
-  id: number;
-  message: string;
-  type: 'success' | 'error';
-}
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { Product, ProductStatus } from "../types";
+import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
+import useApi from "@/component/liveflashback/utils/useApi";
+import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
 
 interface ProductContextType {
   product: Product;
+
   setProduct: React.Dispatch<React.SetStateAction<Product>>;
-  toasts: ToastMessage[];
+
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  addToast: (message: string, type?: 'success' | 'error') => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const useList = () => {
+  const context = useContext(ProductContext);
+  return context as ProductContextType;
+};
+
+export const ProductProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [product, setProduct] = useState<Product>({
-    name: '',
-    description: '',
-    category: '',
-    price: '',
+    name: "",
+    description: "",
+    category: "",
+    price: "",
     sku: `SKU-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-    stockQuantity: '',
+    stockQuantity: "",
     status: ProductStatus.Published,
     image: null,
   });
-  
-  const [toasts, setToasts] = useState<ToastMessage[]>([]);
-  
-  const addToast = (message: string, type: 'success' | 'error' = 'success') => {
-    const id = Date.now();
-    setToasts(prev => [...prev, { id, message, type }]);
-    setTimeout(() => {
-        setToasts(prev => prev.filter(t => t.id !== id));
-    }, 5000);
-  };
 
+  const { setMessage, setTemplateLoading } = useTemplate();
+  const { post } = useApi();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Product Submitted:', product);
-    addToast('Product added successfully!', 'success');
-    // Here you would typically send the data to a server
-    // Reset form for demo purposes
-    setProduct({
-        name: '',
-        description: '',
-        category: '',
-        price: '',
-        sku: `SKU-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-        stockQuantity: '',
-        status: ProductStatus.Published,
-        image: null,
-    });
+  const handleSubmit = async () => {
+    setTemplateLoading(true);
+    try {
+      const { message } = await post<{ token: string }>("AddProduct", {
+        sl: product.sku,
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        price: product.price,
+        stockQuantity: product.stockQuantity,
+        status: product.status,
+        image: product.image,
+      });
+      setMessage("success", message);
+      setTemplateLoading(false);
+    } catch (ex) {
+      setMessage("error", handleAxiosError(ex));
+    } finally {
+      setTemplateLoading(false);
+    }
   };
 
   return (
-    <ProductContext.Provider value={{ product, setProduct,  toasts, handleSubmit, addToast }}>
+    <ProductContext.Provider
+      value={{
+        product,
+        setProduct,
+
+        handleSubmit,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );
-};
- 
-export const useProduct = (): ProductContextType => {
-  const context = useContext(ProductContext);
-  if (context === undefined) {
-    throw new Error('useProduct must be used within a ProductProvider');
-  }
-  return context;
 };

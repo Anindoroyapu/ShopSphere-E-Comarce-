@@ -1,4 +1,4 @@
-import { URLParse } from "url-parse";
+import URLParse from "url-parse";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 // import { EnvManage } from "./EnvManage";

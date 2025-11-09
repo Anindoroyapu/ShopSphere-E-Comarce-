@@ -1,8 +1,6 @@
-
-import React from 'react';
-import ProductForm from './components/ProductForm';
-import { ProductProvider } from './contexts/ProductContext';
-import { ToastContainer } from './components/Toast';
+import React from "react";
+import ProductForm from "./components/ProductForm";
+import { ProductProvider } from "./contexts/ProductContext";
 
 const AddProduct: React.FC = () => {
   return (
@@ -11,7 +9,6 @@ const AddProduct: React.FC = () => {
         <main className="container mx-auto px-4 py-8 md:py-12">
           <ProductForm />
         </main>
-        <ToastContainer />
       </div>
     </ProductProvider>
   );

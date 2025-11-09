@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type SidebarProps = {
   activePage: string;
   setActivePage: (page: string) => void;
@@ -34,8 +36,8 @@ const Sidebar = ({
           <ul>
             {menuItems.map((item) => (
               <li key={item}>
-                <a
-                  href="#"
+                <Link
+                  href={`/${item.toLowerCase()}`}
                   className={`block py-3.5 px-6 my-1 transition duration-200 ease-in-out border-l-4 ${
                     activePage === item
                       ? "bg-slate-700 border-blue-500 font-bold"
@@ -48,7 +50,7 @@ const Sidebar = ({
                   aria-current={activePage === item ? "page" : undefined}
                 >
                   {item}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

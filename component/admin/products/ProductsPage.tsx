@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-
+"use client";
 import Link from "next/link";
-
 import StatusBadge from "../shared/StatusBadge";
+import { useEffect, useState } from "react";
 import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
 import useApi from "@/component/liveflashback/utils/useApi";
 import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
@@ -15,12 +14,10 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await get<any>(`/AddProduct`);
-        console.log(data, "data");
-        setProducts(data as any);
+        const data = await get<any>(`AddProduct`);
+        setProducts(data?.data?.galleryAr as any);
       } catch (ex: any) {
         setMessage("error", handleAxiosError(ex));
-      } finally {
       }
     };
     fetchData();
