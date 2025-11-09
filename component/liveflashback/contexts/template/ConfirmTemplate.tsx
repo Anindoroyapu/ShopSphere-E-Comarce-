@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { ButtonLoading } from "@/deshialumni/lib/bik-button";
+
+import React, { FC } from "react";
 import {
+  Dialog,
+  DialogBody,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  Dialog,
-  DialogBody,
-} from "@/deshialumni/components/ui/dialog";
-import React, { FC } from "react";
+} from "../../utils/dialog";
+import { ButtonLoading } from "../../utils/bik-button";
 
 export type confirmTypeProps = {
   show: boolean;
@@ -17,7 +18,7 @@ export type confirmTypeProps = {
   textActionCname?: string;
   clickAction?: (
     confirm: confirmTypeProps,
-    setConfirm: (value: confirmTypeProps) => void,
+    setConfirm: (value: confirmTypeProps) => void
   ) => void;
 } | null;
 
@@ -30,13 +31,12 @@ interface ConfirmProps {
     textActionCname?: string;
     clickAction?: (
       confirm: confirmTypeProps,
-      setConfirm: (value: confirmTypeProps) => void,
+      setConfirm: (value: confirmTypeProps) => void
     ) => void;
     show: boolean;
   } | null;
   templateLoading: boolean;
 }
-
 
 const TemplateContent: FC<ConfirmProps> = ({
   setConfirm,

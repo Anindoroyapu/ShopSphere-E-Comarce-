@@ -3,13 +3,19 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import StatusBadge from "../shared/StatusBadge";
+import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
+import useApi from "@/component/liveflashback/utils/useApi";
+import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<any[]>([]);
+  const { setMessage } = useTemplate();
+  const { get } = useApi();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await get<any>(`/Booking`);
+        const data = await get<any>(`/AddProduct`);
         console.log(data, "data");
         setProducts(data as any);
       } catch (ex: any) {
