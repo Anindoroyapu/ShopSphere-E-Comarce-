@@ -1,4 +1,4 @@
-import { TState } from "@/deshialumni/types/event";
+import { TState } from "../../types/event";
 
 export interface IAlumniList {
   id: number;

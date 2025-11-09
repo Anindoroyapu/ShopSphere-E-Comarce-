@@ -1,7 +1,14 @@
 "use client";
 
-import React, { createContext, useLayoutEffect, useMemo, useState, ReactNode, use } from "react";
-import { win, doc, screenInfo } from "../utils/dom";
+import React, {
+  createContext,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  ReactNode,
+  use,
+} from "react";
+// import { win, doc, screenInfo } from "../utils/dom";
 
 type TWinLayout = "portrait" | "landscape";
 
@@ -33,7 +40,16 @@ export const SIZE_3XL = 1599;
 export const SIZE_4XL = 1799;
 export const SIZE_5XL = 1999;
 
-const sizeList = [SIZE_XS, SIZE_SM, SIZE_MD, SIZE_LG, SIZE_XL, SIZE_2XL, SIZE_3XL, SIZE_4XL];
+const sizeList = [
+  SIZE_XS,
+  SIZE_SM,
+  SIZE_MD,
+  SIZE_LG,
+  SIZE_XL,
+  SIZE_2XL,
+  SIZE_3XL,
+  SIZE_4XL,
+];
 
 const getSizeName = (width: number): string => {
   if (width < SIZE_XS) return "xs";
@@ -63,7 +79,11 @@ const LayoutProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   });
 
   const windowType = useMemo(() => {
-    return data.windowWidth && data.windowHeight ? (data.windowWidth > data.windowHeight ? "landscape" : "portrait") : "portrait";
+    return data.windowWidth && data.windowHeight
+      ? data.windowWidth > data.windowHeight
+        ? "landscape"
+        : "portrait"
+      : "portrait";
   }, [data.windowHeight, data.windowWidth]);
 
   const windowSizeName = useMemo(() => {
@@ -72,12 +92,12 @@ const LayoutProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   useLayoutEffect(() => {
     function updateSize() {
-      setData({
-        windowWidth: screenInfo?.width,
-        windowHeight: screenInfo?.height,
-        documentHeight: doc?.body?.scrollHeight,
-        documentWidth: doc?.body?.scrollWidth,
-      });
+      // setData({
+      //   windowWidth: screenInfo?.width,
+      //   windowHeight: screenInfo?.height,
+      //   documentHeight: doc?.body?.scrollHeight,
+      //   documentWidth: doc?.body?.scrollWidth,
+      // });
     }
     updateSize();
 
@@ -99,13 +119,22 @@ const LayoutProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       sizeList,
       bodyClassNames: [windowType, windowSizeName],
     };
-  }, [data.documentHeight, data.documentWidth, data.windowHeight, data.windowWidth, windowSizeName, windowType]);
+  }, [
+    data.documentHeight,
+    data.documentWidth,
+    data.windowHeight,
+    data.windowWidth,
+    windowSizeName,
+    windowType,
+  ]);
 
   if (typeof window === "undefined") {
     return null;
   }
 
-  return <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>;
+  return (
+    <LayoutContext.Provider value={value}>{children}</LayoutContext.Provider>
+  );
 };
 
 export default LayoutProvider;

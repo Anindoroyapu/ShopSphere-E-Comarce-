@@ -5,8 +5,8 @@ import { AxiosAuth } from "../utils/AxiosAPI";
 import { handleAxiosError } from "../utils/handleAxiosError";
 import { TApiResponse } from "../types/response";
 import { IInitInfo, InitContextType } from "./types/init-type";
-import { AxiosErrorPage } from "../shared/ErrorPage/AxiosErrorPage";
-import Cookie from "../utils/Cookie";
+// import { AxiosErrorPage } from "../shared/ErrorPage/AxiosErrorPage";
+// import Cookie from "../utils/Cookie";
 const InitContext = createContext<InitContextType>({} as InitContextType);
 
 export const useInit = () => use(InitContext) as InitContextType;
@@ -28,13 +28,14 @@ export const InitProvider = ({ children }: { children: React.ReactNode }) => {
       setInitLoading(true);
       const fetchInit = async () => {
         try {
-          const { data }: { data: TApiResponse<IInitInfo> } = await AxiosAuth.setPath("init/info").get();
+          const { data }: { data: TApiResponse<IInitInfo> } =
+            await AxiosAuth.setPath("init/info").get();
           if (data.error !== 0) {
             throw new Error(data.message);
           }
           setAuthReloadKey(-1);
           setInit(data.data as IInitInfo);
-          new Cookie("init-id").setCookie(data.data?.initId || "", 30);
+          // new Cookie("init-id").setCookie(data.data?.initId || "", 30);
           setInitLoading(false);
         } catch (ex) {
           setInitInfo((prev) => ({
@@ -61,9 +62,9 @@ export const InitProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, [initInfo, authReloadKey, initLoading]);
 
-  if (initInfo?.error === true && initInfo.message === "AxiosError") {
-    return <AxiosErrorPage onClick={() => setInitReloadKey(-1)} />;
-  }
+  // if (initInfo?.error === true && initInfo.message === "AxiosError") {
+  //   return <AxiosErrorPage onClick={() => setInitReloadKey(-1)} />;
+  // }
 
   if (initLoading) {
     return;

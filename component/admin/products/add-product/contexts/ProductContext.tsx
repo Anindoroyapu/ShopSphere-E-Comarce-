@@ -10,6 +10,7 @@ import { Product, ProductStatus } from "../types";
 import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
 import useApi from "@/component/liveflashback/utils/useApi";
 import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
+import { time } from "console";
 
 interface ProductContextType {
   product: Product;
@@ -30,12 +31,12 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [product, setProduct] = useState<Product>({
-    name: "",
-    description: "",
-    category: "",
-    price: "",
+    name: "asad",
+    description: "asadsss",
+    category: "asad",
+    price: 1212,
     sku: `SKU-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-    stockQuantity: "",
+    stockQuantity: 12,
     status: ProductStatus.Published,
     image: null,
   });
@@ -44,24 +45,34 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   const { post } = useApi();
 
   const handleSubmit = async () => {
-    setTemplateLoading(true);
+    // setTemplateLoading(true);
     try {
       const { message } = await post<{ token: string }>("AddProduct", {
-        sl: product.sku,
-        name: product.name,
-        description: product.description,
-        category: product.category,
+        sl: 0,
+        brandSl: "0",
+        title: product.name,
+        subTitle: product.name,
+        unit: "pcs",
+        sku: product.sku,
+        pricePurchase: product.price,
+        priceSale: product.price,
+        priceSaleOffer: product.price,
+        productDescription: product.description,
+        categoryTitle: product.category,
         price: product.price,
-        stockQuantity: product.stockQuantity,
+        isInStoke: product.stockQuantity,
+        deliveryAmount: "0",
+        timeCreated: new Date().toISOString(),
+        timeUpdated: new Date().toISOString(),
         status: product.status,
-        image: product.image,
+        defaultImage: product.image,
       });
       setMessage("success", message);
-      setTemplateLoading(false);
+      // setTemplateLoading(false);
     } catch (ex) {
       setMessage("error", handleAxiosError(ex));
     } finally {
-      setTemplateLoading(false);
+      // setTemplateLoading(false);
     }
   };
 

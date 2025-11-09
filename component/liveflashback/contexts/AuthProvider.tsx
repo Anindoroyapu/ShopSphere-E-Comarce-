@@ -1,13 +1,18 @@
 "use client";
 
-import { createContext, ReactNode, use, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  use,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTemplate } from "./template/TemplateProvider";
 import { handleAxiosError } from "../utils/handleAxiosError";
-import { ApiLoginConfirmOtp, ApiSendOtp } from "../shared/auth/AuthOperation";
 import useApi from "../utils/useApi";
 import { useInit } from "./InitProvider";
 import { AuthContextType, IAuthInfo } from "./types/auth-type";
-import Cookie from "../utils/Cookie";
 import { useRouter } from "next/navigation";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -31,24 +36,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { setMessage, openModal } = useTemplate();
   //--send otp
   const sendOtp = async () => {
-    try {
-      const res = await ApiSendOtp<AuthContextType["formData"]>(formData);
-      setMessage("success", res.message);
-      openModal("otp-verify-modal-open", res.data?.otp);
-    } catch (ex) {
-      setMessage("error", handleAxiosError(ex));
-    } finally {
-    }
+    // try {
+    //   const res = await <AuthContextType["formData"]>(formData);
+    //   setMessage("success", res.message);
+    //   openModal("otp-verify-modal-open", res.data?.otp);
+    // } catch (ex) {
+    //   setMessage("error", handleAxiosError(ex));
+    // } finally {
+    // }
   };
 
   const confirmOtp = async () => {
-    try {
-      const res = await ApiLoginConfirmOtp(formData);
-      setMessage("success", res.message);
-    } catch (ex) {
-      setMessage("error", handleAxiosError(ex));
-    } finally {
-    }
+    // try {
+    //   const res = await ApiLoginConfirmOtp(formData);
+    //   setMessage("success", res.message);
+    // } catch (ex) {
+    //   setMessage("error", handleAxiosError(ex));
+    // } finally {
+    // }
   };
 
   useEffect(() => {
@@ -90,7 +95,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setAuthInfo({} as IAuthInfo);
       setAuthReloadKey(-1);
       setIsAuthorized(false);
-      new Cookie("token").setCookie("", -1);
       router.refresh();
     };
 
