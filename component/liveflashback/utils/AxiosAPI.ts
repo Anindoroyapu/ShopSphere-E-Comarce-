@@ -45,7 +45,7 @@ class AxiosAPI {
       .join("/");
 
     // const url = new URLParse(`${getApiUrl()}/${rUrl}`, true);
-    const url = new URLParse(`//admin.ashaa.xyz/api/${rUrl}`, true);
+    const url = new URLParse(`http://admin.ashaa.xyz/api/${rUrl}`, true);
 
     // Create a new query object
     const newQuery = { ...url.query, ...query };
