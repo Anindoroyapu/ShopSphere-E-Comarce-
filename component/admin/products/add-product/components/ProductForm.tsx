@@ -5,6 +5,7 @@ import { ProductStatus } from '../types';
 import { IconTag, IconArchive, IconCheckCircle } from './icons';
 import FormField from './FormField';
 import ImageUpload from './ImageUpload';
+import Link from 'next/link';
 
 const categories = [
   'Electronics',
@@ -131,7 +132,13 @@ const ProductForm: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-end pt-2">
+      <div className="flex justify-end gap-5 pt-2">
+        <Link href={"/dashboard"}
+          type="button"
+          className="inline-flex items-center justify-center rounded-lg border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg"
+        >
+          Cancel
+        </Link>
         <button
           type="submit"
           className="inline-flex items-center justify-center rounded-lg border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg"
