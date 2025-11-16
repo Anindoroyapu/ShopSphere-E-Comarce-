@@ -14,14 +14,21 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await get<any>(`AddProduct`);
-        setProducts(data?.data?.galleryAr as any);
+        const res = await get<any>(`AddProduct`);
+
+        console.log(res ,"res")
+        const payload = Array.isArray(res)
+           
+  
+        setProducts(payload);
       } catch (ex: any) {
         setMessage("error", handleAxiosError(ex));
       }
     };
     fetchData();
   }, []);
+
+console.log(products,"products")
 
   return (
     <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
@@ -61,7 +68,7 @@ const ProductsPage = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {products && products.length > 0 ? products.map((product) => (
               <tr
                 key={product.id}
                 className="border-b border-slate-200 last:border-b-0 hover:bg-slate-50"
@@ -96,7 +103,11 @@ const ProductsPage = () => {
                   </a>
                 </td>
               </tr>
-            ))}
+            )) : (
+              <tr>
+                <td colSpan={6} className="p-4 text-center text-slate-700">No products found.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

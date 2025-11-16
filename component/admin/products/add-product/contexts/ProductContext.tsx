@@ -4,13 +4,13 @@ import React, {
   useContext,
   useState,
   ReactNode,
-  useEffect,
+
 } from "react";
 import { Product, ProductStatus } from "../types";
 import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
 import useApi from "@/component/liveflashback/utils/useApi";
 import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
-import { time } from "console";
+
 
 interface ProductContextType {
   product: Product;
@@ -31,29 +31,28 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [product, setProduct] = useState<Product>({
-    name: "asad",
-    description: "asadsss",
-    category: "asad",
-    price: 1212,
+    name: "",
+    description: "",
+    category: "",
+    price: 0,
     sku: `SKU-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-    stockQuantity: 12,
+    stockQuantity: 0,
     status: ProductStatus.Published,
-    image: null,
+    image: new File([], "image.jpg"),
   });
 
   const { setMessage } = useTemplate();
   const { post } = useApi();
 
   const handleSubmit = async () => {
-
     try {
-      const { message } = await post<{ token: string }>("AddProduct", {
-        sl: 0,
+      const { message } = await post<{ message: string }>("AddProduct", {
+        id: 0,
         brandSl: "0",
         title: product.name,
         subTitle: product.name,
         unit: "pcs",
-        addProduct:"true",
+        addProduct: "true",
         sku: product.sku,
         // pricePurchase: product.price,
         // priceSale: product.price,
@@ -66,7 +65,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         timeCreated: new Date().toISOString(),
         timeUpdated: new Date().toISOString(),
         status: product.status,
-        defaultImage: product.image||"image.jpg",
+        defaultImage: product.image || "image.jpg",
       });
       setMessage("success", message);
 
