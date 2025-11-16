@@ -41,11 +41,11 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
     image: null,
   });
 
-  const { setMessage, setTemplateLoading } = useTemplate();
+  const { setMessage } = useTemplate();
   const { post } = useApi();
 
   const handleSubmit = async () => {
-    // setTemplateLoading(true);
+
     try {
       const { message } = await post<{ token: string }>("AddProduct", {
         sl: 0,
@@ -53,26 +53,27 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         title: product.name,
         subTitle: product.name,
         unit: "pcs",
+        addProduct:"true",
         sku: product.sku,
-        pricePurchase: product.price,
-        priceSale: product.price,
+        // pricePurchase: product.price,
+        // priceSale: product.price,
         priceSaleOffer: product.price,
         productDescription: product.description,
         categoryTitle: product.category,
         price: product.price,
-        isInStoke: product.stockQuantity,
+        is_in_stock: product.stockQuantity,
         deliveryAmount: "0",
         timeCreated: new Date().toISOString(),
         timeUpdated: new Date().toISOString(),
         status: product.status,
-        defaultImage: product.image,
+        defaultImage: product.image||"image.jpg",
       });
       setMessage("success", message);
-      // setTemplateLoading(false);
+
     } catch (ex) {
       setMessage("error", handleAxiosError(ex));
     } finally {
-      // setTemplateLoading(false);
+
     }
   };
 

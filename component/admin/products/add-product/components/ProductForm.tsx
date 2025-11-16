@@ -37,7 +37,7 @@ const ProductForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl mx-auto">
+    <form onSubmit={(e) => {e.preventDefault(); handleSubmit(e)}} className="space-y-8 max-w-4xl mx-auto">
       <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-200/80">
         <h1 className="text-3xl font-bold text-slate-900 mb-2">
           Add New Product
