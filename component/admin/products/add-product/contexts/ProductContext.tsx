@@ -55,7 +55,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         addProduct: "true",
         sku: product.sku,
         // pricePurchase: product.price,
-        // priceSale: product.price,
+        priceSale: product.price,
         priceSaleOffer: product.price,
         productDescription: product.description,
         categoryTitle: product.category,
