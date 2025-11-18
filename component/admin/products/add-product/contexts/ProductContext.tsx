@@ -1,16 +1,9 @@
 "use client";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-
-} from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { Product, ProductStatus } from "../types";
 import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
 import useApi from "@/component/liveflashback/utils/useApi";
 import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
-
 
 interface ProductContextType {
   product: Product;
@@ -47,7 +40,6 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   const handleSubmit = async () => {
     try {
       const { message } = await post<{ message: string }>("AddProduct", {
-        id: 0,
         brandSl: "0",
         title: product.name,
         subTitle: product.name,
@@ -68,11 +60,9 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         defaultImage: product.image || "image.jpg",
       });
       setMessage("success", message);
-
     } catch (ex) {
       setMessage("error", handleAxiosError(ex));
     } finally {
-
     }
   };
 

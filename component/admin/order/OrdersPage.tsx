@@ -1,150 +1,30 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import StatusBadge from "../shared/StatusBadge";
+import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
+import useApi from "@/component/liveflashback/utils/useApi";
+import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
 
 const OrdersPage = () => {
-  const allOrders = [
-    {
-      id: "#12345",
-      customer: "John Doe",
-      date: "2024-07-29",
-      total: "$150.00",
-      status: "Shipped",
-    },
-    {
-      id: "#12346",
-      customer: "Jane Smith",
-      date: "2024-07-29",
-      total: "$75.50",
-      status: "Processing",
-    },
-    {
-      id: "#12347",
-      customer: "Mike Johnson",
-      date: "2024-07-28",
-      total: "$220.10",
-      status: "Delivered",
-    },
-    {
-      id: "#12348",
-      customer: "Emily Brown",
-      date: "2024-07-28",
-      total: "$45.00",
-      status: "Shipped",
-    },
-    {
-      id: "#12349",
-      customer: "Chris Lee",
-      date: "2024-07-27",
-      total: "$300.75",
-      status: "Pending",
-    },
-    {
-      id: "#12350",
-      customer: "Sarah Wilson",
-      date: "2024-07-27",
-      total: "$99.99",
-      status: "Cancelled",
-    },
-    {
-      id: "#12351",
-      customer: "David Martinez",
-      date: "2024-07-26",
-      total: "$12.00",
-      status: "Delivered",
-    },
-    {
-      id: "#12352",
-      customer: "Jessica Taylor",
-      date: "2024-07-26",
-      total: "$180.25",
-      status: "Shipped",
-    },
-    {
-      id: "#12353",
-      customer: "James Anderson",
-      date: "2024-07-25",
-      total: "$25.50",
-      status: "Processing",
-    },
-    {
-      id: "#12354",
-      customer: "Linda Thomas",
-      date: "2024-07-25",
-      total: "$500.00",
-      status: "Delivered",
-    },
-    {
-      id: "#12355",
-      customer: "Robert Jackson",
-      date: "2024-07-24",
-      total: "$85.00",
-      status: "Pending",
-    },
-    {
-      id: "#12356",
-      customer: "Patricia White",
-      date: "2024-07-24",
-      total: "$19.99",
-      status: "Shipped",
-    },
-    {
-      id: "#12357",
-      customer: "Charles Harris",
-      date: "2024-07-23",
-      total: "$230.00",
-      status: "Cancelled",
-    },
-    {
-      id: "#12358",
-      customer: "Mary Martin",
-      date: "2024-07-23",
-      total: "$65.70",
-      status: "Delivered",
-    },
-    {
-      id: "#12359",
-      customer: "Joseph Thompson",
-      date: "2024-07-22",
-      total: "$92.00",
-      status: "Processing",
-    },
-    {
-      id: "#12360",
-      customer: "Jennifer Garcia",
-      date: "2024-07-22",
-      total: "$110.00",
-      status: "Shipped",
-    },
-    {
-      id: "#12361",
-      customer: "Daniel Rodriguez",
-      date: "2024-07-21",
-      total: "$42.50",
-      status: "Delivered",
-    },
-    {
-      id: "#12362",
-      customer: "William Martinez",
-      date: "2024-07-21",
-      total: "$14.99",
-      status: "Pending",
-    },
-    {
-      id: "#12363",
-      customer: "Susan Robinson",
-      date: "2024-07-20",
-      total: "$78.00",
-      status: "Shipped",
-    },
-    {
-      id: "#12364",
-      customer: "Donald Clark",
-      date: "2024-07-20",
-      total: "$199.50",
-      status: "Processing",
-    },
-  ];
+  const [allOrders, setAllOrders] = useState<any[]>([]);
+  const { setMessage } = useTemplate();
+  const { get } = useApi();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await get<any>("Checkout");
+        setAllOrders(data || []);
+      } catch (ex) {
+        setMessage("error", handleAxiosError(ex));
+        console.log("dataaaaaa");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(allOrders, "data");
 
   const ORDERS_PER_PAGE = 10;
   const [searchTerm, setSearchTerm] = useState("");
