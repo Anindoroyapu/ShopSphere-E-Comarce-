@@ -7,22 +7,36 @@ import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosErr
 
 const OrdersPage = () => {
   const [allOrders, setAllOrders] = useState<any[]>([]);
-  const { setMessage } = useTemplate();
-  const { get } = useApi();
+  // const { setMessage } = useTemplate();
+  // const { get } = useApi();
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const { data } = await get<any[]>("Checkout");
+  //       setAllOrders(data || []);
+  //     } catch (ex) {
+  //       setMessage("error", handleAxiosError(ex));
+  //       console.log("dataaaaaa");
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await get<any[]>("Checkout");
-        setAllOrders(data || []);
-      } catch (ex) {
-        setMessage("error", handleAxiosError(ex));
-        console.log("dataaaaaa");
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://admin.ashaa.xyz/api/Checkout");
+      const json = await res.json();
+      setAllOrders(json.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   console.log(allOrders, "data");
 
@@ -31,35 +45,35 @@ const OrdersPage = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filteredOrders = useMemo(() => {
-    return allOrders
-      .filter((order) => {
-        if (statusFilter === "All") return true;
-        return order.status === statusFilter;
-      })
-      .filter((order) => {
-        const term = searchTerm.toLowerCase();
-        return (
-          order.id.toLowerCase().includes(term) ||
-          order.customer.toLowerCase().includes(term)
-        );
-      });
-  }, [statusFilter, searchTerm]);
+  // const filteredOrders = useMemo(() => {
+  //   return allOrders
+  //     .filter((order) => {
+  //       if (statusFilter === "All") return true;
+  //       return order.status === statusFilter;
+  //     })
+  //     .filter((order) => {
+  //       const term = searchTerm.toLowerCase();
+  //       return (
+  //         order.id.toLowerCase().includes(term) ||
+  //         order.customer.toLowerCase().includes(term)
+  //       );
+  //     });
+  // }, [statusFilter, searchTerm]);
 
-  const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
+  // const totalPages = Math.ceil(filteredOrders.length / ORDERS_PER_PAGE);
 
-  const paginatedOrders = useMemo(() => {
-    const startIndex = (currentPage - 1) * ORDERS_PER_PAGE;
-    return filteredOrders.slice(startIndex, startIndex + ORDERS_PER_PAGE);
-  }, [filteredOrders, currentPage]);
+  // const paginatedOrders = useMemo(() => {
+  //   const startIndex = (currentPage - 1) * ORDERS_PER_PAGE;
+  //   return filteredOrders.slice(startIndex, startIndex + ORDERS_PER_PAGE);
+  // }, [filteredOrders, currentPage]);
 
-  const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
+  // const handleNextPage = () => {
+  //   setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  // };
 
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
+  // const handlePrevPage = () => {
+  //   setCurrentPage((prev) => Math.max(prev - 1, 1));
+  // };
 
   const allStatuses = [
     "All",
@@ -114,38 +128,57 @@ const OrdersPage = () => {
                 Customer
               </th>
               <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
-                Date
+                Phone
               </th>
+              <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
+                Product
+              </th>
+              <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
+                Quantity
+              </th>
+              <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
+                Size
+              </th>{" "}
+              <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
+                Shipping
+              </th>{" "}
               <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
                 Total
-              </th>
+              </th>{" "}
               <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
-                Status
-              </th>
-              <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
-                Actions
+                #
               </th>
             </tr>
           </thead>
           <tbody>
-            {paginatedOrders.length > 0 ? (
-              paginatedOrders.map((order) => (
-                <tr
-                  key={order.id}
-                  className="border-b border-slate-200 last:border-b-0 hover:bg-slate-50"
-                >
-                  <td className="p-4 text-slate-700 font-medium">{order.id}</td>
-                  <td className="p-4 text-slate-700">{order.customer}</td>
-                  <td className="p-4 text-slate-700">{order.date}</td>
-                  <td className="p-4 text-slate-700">{order.total}</td>
-                  <td className="p-4">
-                    <StatusBadge status={order.status} />
-                  </td>
-                  <td className="p-4 text-sm font-medium text-blue-600 hover:underline cursor-pointer">
-                    View Details
-                  </td>
-                </tr>
-              ))
+            {allOrders.length > 0 ? (
+              allOrders
+                .slice()
+                .reverse()
+                .map((order) => (
+                  <tr
+                    key={order.id}
+                    className="border-b border-slate-200 last:border-b-0 hover:bg-slate-50"
+                  >
+                    <td className="p-4 text-slate-700 font-medium">
+                      {order.id}
+                    </td>
+                    <td className="p-4 text-slate-700">{order.fullName}</td>
+                    <td className="p-4 text-slate-700">
+                      {order.phone} <br />
+                      {order.email}
+                    </td>
+                    <td className="p-4 text-slate-700">{order.productName}</td>
+                    <td className="p-4 text-slate-700">{order.quantity}</td>
+                    <td className="p-4 text-slate-700">{order.size}</td>
+                    <td className="p-4 text-slate-700">{order.shipping}</td>
+                    <td className="p-4 text-slate-700">{order.total}</td>
+
+                    <td className="p-4 text-sm font-medium text-blue-600 hover:underline cursor-pointer">
+                      View Details
+                    </td>
+                  </tr>
+                ))
             ) : (
               <tr>
                 {/* FIX: Changed colSpan to be a number */}
@@ -157,7 +190,7 @@ const OrdersPage = () => {
           </tbody>
         </table>
       </div>
-      {totalPages > 1 && (
+      {/* {totalPages > 1 && (
         <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4">
           <span className="text-sm text-slate-600">
             Page {currentPage} of {totalPages} ({filteredOrders.length} total
@@ -180,7 +213,7 @@ const OrdersPage = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

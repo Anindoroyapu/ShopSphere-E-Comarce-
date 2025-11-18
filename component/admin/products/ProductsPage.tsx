@@ -38,7 +38,6 @@ const ProductsPage = () => {
       console.error("Error fetching data:", error);
     }
   };
-  console.log(products, "products");
 
   return (
     <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
@@ -79,7 +78,7 @@ const ProductsPage = () => {
           </thead>
           <tbody>
             {products && products.length > 0 ? (
-              products.map((product) => (
+              products.map((product: any) => (
                 <tr
                   key={product.id}
                   className="border-b border-slate-200 last:border-b-0 hover:bg-slate-50"

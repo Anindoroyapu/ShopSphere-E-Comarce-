@@ -113,7 +113,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
   const { post } = useApi();
   const { setMessage } = useTemplate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await post<{ message: string }>("Checkout", {
@@ -139,7 +139,37 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
     } finally {
     }
   };
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
+    try {
+      const res = await fetch("https://admin.ashaa.xyz/api/Checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email || " Anonymous",
+          phone: formData.phone,
+          address: formData.address,
+          size: formData.size,
+          subTotal: subtotal.toString(),
+          total: total.toString(),
+          shipping: shipping.toString(),
+          quantity: formData.quantity,
+          productName: formData.productNames,
+          productId: formData.productIds,
+          productSku: formData.productSkus,
+        }),
+      });
+
+      setCart([]);
+      setCurrentPage("orderConfirmation");
+    } catch (err) {
+      console.error("POST Error:", err);
+    }
+  };
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
