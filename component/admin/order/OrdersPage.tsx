@@ -13,7 +13,7 @@ const OrdersPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await get<any>("Checkout");
+        const { data } = await get<any[]>("Checkout");
         setAllOrders(data || []);
       } catch (ex) {
         setMessage("error", handleAxiosError(ex));
