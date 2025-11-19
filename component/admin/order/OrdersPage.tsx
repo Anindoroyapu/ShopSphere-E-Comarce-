@@ -129,6 +129,8 @@ const OrdersPage = () => {
               </th>
               <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
                 Phone
+              </th><th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
+                Address
               </th>
               <th className="p-4 font-bold text-slate-500 uppercase text-xs tracking-wider">
                 Product
@@ -167,7 +169,7 @@ const OrdersPage = () => {
                     <td className="p-4 text-slate-700">
                       {order.phone} <br />
                       {order.email}
-                    </td>
+                    </td><td className="p-4 text-slate-700">{order.address}</td>
                     <td className="p-4 text-slate-700">{order.productName}</td>
                     <td className="p-4 text-slate-700">{order.quantity}</td>
                     <td className="p-4 text-slate-700">{order.size}</td>
