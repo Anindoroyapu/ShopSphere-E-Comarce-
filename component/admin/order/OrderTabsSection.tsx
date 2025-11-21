@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import OrderListTable from "./OrderListTable";
 import OrderListTableHeaderSection from "./OrderListTableHeaderSection";
 import OrderProgressBarSection from "./OrderProgressBarSection";
+import { useOrderList } from "./context/OrderListProvider";
 
 type Order = {
   id: string | number;
@@ -18,9 +19,7 @@ type Order = {
   status?: string;
 };
 
-interface Props {
-  allOrders: Order[];
-}
+interface Props {}
 
 const statuses = [
   { id: 1, label: "Pending", colorClass: "bg-yellow-500" },
@@ -41,8 +40,10 @@ const normalize = (s?: string) =>
     .replace(/\s+/g, "")
     .replace(/[^a-z0-9]/g, "");
 
-const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
+const OrderTabsSection: React.FC = ({}) => {
   const [active, setActive] = useState<number>(1);
+
+  const { orderListData, reload } = useOrderList();
 
   // On mount, read ?status= from URL (accepts id or label) and set active tab
   useEffect(() => {
@@ -119,7 +120,7 @@ const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
         const isActive = s.id === active;
 
         // Filter orders to match the tab label (case/space-insensitive)
-        const filtered = allOrders.filter(
+        const filtered = orderListData.filter(
           (o) => normalize(o.status) === normalize(s.label)
         );
 

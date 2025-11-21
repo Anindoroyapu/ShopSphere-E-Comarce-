@@ -1,4 +1,6 @@
+import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
+import { useOrderList } from "./context/OrderListProvider";
 
 type Order = {
   id: string | number;
@@ -28,11 +30,13 @@ const OrderListTable: FC<Props> = ({ order, status, btncolor }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
+  const { reload } = useOrderList();
+
   // determine next status based on the provided status list
   const currentIndex = status.indexOf(selectedStatus);
   const nextStatus = currentIndex >= 0 ? status[currentIndex + 1] : undefined;
   const hasNext = typeof nextStatus === "string";
-
+  const router = useRouter();
   const onStatusChange = async (id: string | number, newStatus: string) => {
     try {
       setIsSaving(true);
@@ -48,6 +52,8 @@ const OrderListTable: FC<Props> = ({ order, status, btncolor }) => {
       setSelectedStatus(newStatus);
       setIsSaving(false);
       setShowConfirm(false);
+      reload();
+      router.refresh();
     } catch (error) {
       console.error("Failed to update status", error);
       // optionally show toast/error message
@@ -78,22 +84,9 @@ const OrderListTable: FC<Props> = ({ order, status, btncolor }) => {
 
         {/* status column: show current status (e.g., "pending") */}
         <td className="p-4 text-slate-700 text-center">
-          {(() => {
-            const currentColor =
-              btncolor && btncolor[currentIndex]
-                ? btncolor[currentIndex]
-                : "text-slate-700";
-            const textColorClass = currentColor.startsWith("bg-")
-              ? currentColor.replace(/^bg-/, "text-")
-              : currentColor;
-            return (
-              <span
-                className={`inline-block px-2 py-1 rounded text-sm ${textColorClass}`}
-              >
-                {selectedStatus || "—"}
-              </span>
-            );
-          })()}
+          <span className="inline-block px-2 py-1 rounded text-sm bg-slate-100">
+            {selectedStatus || "—"}
+          </span>
         </td>
 
         <td className="p-4 text-xs text-slate-700">
@@ -127,18 +120,38 @@ const OrderListTable: FC<Props> = ({ order, status, btncolor }) => {
             onClick={() => !isSaving && setShowConfirm(false)}
           />
           <div className="relative bg-white rounded shadow-lg w-11/12 max-w-md p-6 z-10">
-            <h3 className="text-lg font-semibold mb-3">
-              Confirm status change
-            </h3>
-            <p className="mb-4">
-              Change order #{order.id} status from{" "}
+            <div className="flex items-center justify-center mb-4">
+              <span role="img" aria-label="warning" className="sr-only">
+                warning
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-14 h-14 text-yellow-500"
+                aria-hidden="false"
+                role="img"
+                aria-label="warning"
+              >
+                <title>Warning</title>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </div>
+            <p className="mb-10 text-black text-xl text-center">
+              Are you sure Change order #{order.id} status from{" "}
               <strong>{selectedStatus || "—"}</strong> to{" "}
               <strong>{nextStatus}</strong>?
             </p>
-            <div className="flex justify-end space-x-2">
+            <div className="flex justify-center space-x-2">
               <button
                 onClick={() => !isSaving && setShowConfirm(false)}
-                className="px-3 py-1 rounded border"
+                className="px-3 py-1 rounded border text-gray-500"
                 disabled={isSaving}
               >
                 Cancel
