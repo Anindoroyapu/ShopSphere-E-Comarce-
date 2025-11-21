@@ -4,10 +4,12 @@ import { Product, ProductStatus } from "../types";
 import { useTemplate } from "@/component/liveflashback/contexts/template/TemplateProvider";
 import useApi from "@/component/liveflashback/utils/useApi";
 import { handleAxiosError } from "@/component/liveflashback/utils/handleAxiosError";
+import { useRouter } from "next/navigation";
 
 interface ProductContextType {
   product: Product;
-
+  preview: string | null;
+  setPreview: React.Dispatch<React.SetStateAction<string | null>>;
   setProduct: React.Dispatch<React.SetStateAction<Product>>;
 
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -23,6 +25,7 @@ export const useList = () => {
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
+  const [preview, setPreview] = useState<string | null>(null);
   const [product, setProduct] = useState<Product>({
     name: "",
     description: "",
@@ -36,6 +39,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
 
   const { setMessage } = useTemplate();
   const { post } = useApi();
+  const router = useRouter();
 
   const handleSubmit = async () => {
     try {
@@ -57,9 +61,10 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
         timeCreated: new Date().toISOString(),
         timeUpdated: new Date().toISOString(),
         status: product.status,
-        defaultImage: product.image || "image.jpg",
+        defaultImage: preview || "image.jpg",
       });
       setMessage("success", message);
+      router.push("/admin/product");
     } catch (ex) {
       setMessage("error", handleAxiosError(ex));
     } finally {
@@ -69,6 +74,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <ProductContext.Provider
       value={{
+        preview,
+        setPreview,
         product,
         setProduct,
 

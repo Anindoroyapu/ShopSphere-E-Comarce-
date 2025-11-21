@@ -2,27 +2,20 @@ import React from "react";
 import Link from "next/link";
 
 type SidebarProps = {
-  activePage: string;
-  setActivePage: (page: string) => void;
   isSidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
 };
 
-const Sidebar = ({
-  activePage,
-  setActivePage,
-  isSidebarOpen,
-  setSidebarOpen,
-}: SidebarProps) => {
+const Sidebar = ({ isSidebarOpen, setSidebarOpen }: SidebarProps) => {
   const menuItems = [
     "Dashboard",
     "Order",
     "Product",
     "Customer",
     "Analytic",
-    "Settings",
+    // "Settings",
   ];
-
+  const [activePage, setActivePage] = React.useState("Dashboard");
   return (
     <>
       <aside
