@@ -151,6 +151,7 @@ const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
                             key={order.id}
                             order={order}
                             status={statuses.map((st) => st.label)}
+                            btncolor={statuses.map((st) => st.colorClass)}
                           />
                         ))
                     ) : (

@@ -7,18 +7,22 @@ import OrderListTableHeaderSection from "./OrderListTableHeaderSection";
 
 const OrdersPage = () => {
   const [allOrders, setAllOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await fetch("https://admin.ashaa.xyz/api/Checkout");
       const json = await res.json();
       setAllOrders(json.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false);
     }
   };
 
