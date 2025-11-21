@@ -1,6 +1,4 @@
 "use client";
-
-import { useSearchParams } from "next/navigation";
 import React, {
   createContext,
   FC,
@@ -38,8 +36,6 @@ const OrderListProvider: FC<{
 }> = ({ children }) => {
   const [orderListData, setOrderListData] = useState<TData[]>([]);
 
-  const searchParams = useSearchParams();
-  const memberId = searchParams.get("memberId");
   const [reloadKey, setReloadKey] = useState<number>(-1);
   // const { get } = useApi();
   // const { setMessage } = useTemplate();
