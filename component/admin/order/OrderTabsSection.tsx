@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OrderListTable from "./OrderListTable";
 import OrderListTableHeaderSection from "./OrderListTableHeaderSection";
 import OrderProgressBarSection from "./OrderProgressBarSection";
@@ -43,6 +43,40 @@ const normalize = (s?: string) =>
 
 const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
   const [active, setActive] = useState<number>(1);
+
+  // On mount, read ?status= from URL (accepts id or label) and set active tab
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const statusParam = params.get("status");
+    if (!statusParam) return;
+
+    const id = parseInt(statusParam, 10);
+    if (!Number.isNaN(id) && statuses.some((s) => s.id === id)) {
+      setActive(id);
+      return;
+    }
+
+    // try matching by label (normalized)
+    const found = statuses.find(
+      (s) => normalize(s.label) === normalize(statusParam)
+    );
+    if (found) {
+      setActive(found.id);
+    }
+  }, []);
+
+  // helper to update URL without reloading the page
+  const updateUrlStatus = (value: string) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("status", value);
+    window.history.replaceState({}, "", url.toString());
+  };
+
+  const handleTabClick = (id: number) => {
+    setActive(id);
+    updateUrlStatus(String(id));
+  };
+
   const total = statuses.length;
   const percent = Math.round((active / total) * 100);
   const activeColor =
@@ -65,7 +99,7 @@ const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
                   aria-selected={isActive}
                   aria-controls={`status-${s.id}`}
                   type="button"
-                  onClick={() => setActive(s.id)}
+                  onClick={() => handleTabClick(s.id)}
                   className={
                     "px-3 py-2 rounded border text-sm font-medium transition-colors " +
                     (isActive
@@ -102,11 +136,6 @@ const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
             }
           >
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">{s.label}</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Showing orders with status &quot;{s.label}&quot;.
-              </p>
-
               <div className="mt-4">
                 <table className="w-full text-left">
                   <thead>
@@ -118,7 +147,11 @@ const OrderTabsSection: React.FC<Props> = ({ allOrders }) => {
                         .slice()
                         .reverse()
                         .map((order) => (
-                          <OrderListTable key={order.id} order={order} />
+                          <OrderListTable
+                            key={order.id}
+                            order={order}
+                            status={statuses.map((st) => st.label)}
+                          />
                         ))
                     ) : (
                       <tr>
