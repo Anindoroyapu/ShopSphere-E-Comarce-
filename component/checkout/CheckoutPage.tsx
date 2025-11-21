@@ -161,6 +161,7 @@ const CheckoutPage = ({ cart, setCart, setCurrentPage }: CheckoutPageProps) => {
           productName: formData.productNames,
           productId: formData.productIds,
           productSku: formData.productSkus,
+          status: "Pending",
         }),
       });
 
